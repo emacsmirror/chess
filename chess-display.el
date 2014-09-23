@@ -753,14 +753,15 @@ The key bindings available in this mode are:
       (cond
        ((search-forward "[Event " nil t)
 	(goto-char (match-beginning 0))
-	(chess-game-copy-game chess-module-game (chess-pgn-to-game)))
+	(chess-game-copy-game display (chess-pgn-to-game)))
        ((looking-at (concat chess-algebraic-regexp "$"))
 	(let ((move (buffer-string)))
 	  (with-current-buffer display
 	    (chess-display-manual-move move))))
        (t
-	(with-current-buffer display
-	  (chess-display-set-from-fen (buffer-string))))))))
+	(let ((fen (buffer-string)))
+	  (with-current-buffer display
+	    (chess-display-set-from-fen fen))))))))
 
 (defvar chess-display-search-map
   (let ((map (copy-keymap minibuffer-local-map)))

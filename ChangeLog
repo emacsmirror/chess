@@ -1,3 +1,7 @@
+2014-09-23  Mario Lang  <mlang@delysid.org>
+
+	* chess-display.el (chess-display-yank-board): Fix FEN insertion.
+
 2014-07-28  Mario Lang  <mlang@delysid.org>
 
 	* chess-display.el (chess-display-draw-square): Add docstring.
