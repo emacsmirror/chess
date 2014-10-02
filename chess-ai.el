@@ -324,7 +324,7 @@ DEPTH defaults to the value of `chess-ai-depth'."
       (when (chess-game-over-p game)
 	(chess-game-set-data game 'active nil)))
 
-     ((eq event 'post-move)
+     ((memq event '(post-move pass))
       (unless (chess-game-over-p game)
 	(let ((chess-display-handling-event nil)
 	      (position (chess-engine-position nil)))
