@@ -1,6 +1,6 @@
 ;;; chess-pgn.el --- Convert a chess game to/from Portable Game Notation (PGN)
 
-;; Copyright (C) 2002, 2004, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002, 2004, 2008, 2014, 2017  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -155,12 +155,12 @@ Optionally use the supplied STRING instead of the current buffer."
       (let ((game (chess-game-create)))
 	(chess-game-set-tags game nil)
 	(while (looking-at (rx
-			    ?[ (group (one-or-more (not (syntax whitespace))))
+			    ?\[ (group (one-or-more (not (syntax whitespace))))
 			       (one-or-more (syntax whitespace))
 			       (syntax string-quote)
 			       (group (*? not-newline))
 			       (syntax string-quote)
-			       ?]
+			       ?\]
 			    (one-or-more (char ?  ?\n ?\r ?\t))))
 	  (chess-game-set-tag game (match-string-no-properties 1)
 			      (match-string-no-properties 2))
