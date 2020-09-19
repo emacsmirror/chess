@@ -1,6 +1,6 @@
 ;;; chess-pos.el --- Routines for manipulating chess positions
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -130,6 +130,8 @@ This variable automatically becomes buffer-local when changed.")
 (defsubst chess-pos-p (position)
   "Return non-nil if POSITION is a chess position object."
   (and (vectorp position) (= (length position) 75)))
+
+(cl-deftype chess-pos () '(satisfies chess-pos-p))
 
 (chess-message-catalog 'english
   '((chess-nag-1   . "good move [traditional \"!\"]")

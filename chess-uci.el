@@ -1,6 +1,6 @@
 ;;; chess-uci.el --- Common functions for the Universal Chess Interface protocol
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -50,7 +50,8 @@
 	       (if (and (= from (chess-pos-king-index position color))
 			(= (chess-index-rank from) (chess-index-rank to))
 			(> (abs (- (chess-index-file from)
-				   (chess-index-file to))) 1))
+				   (chess-index-file to)))
+			   1))
 		   (chess-ply-castling-changes
 		    position
 		    (< (- (chess-index-file to) (chess-index-file from)) 0))

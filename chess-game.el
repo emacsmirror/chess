@@ -1,6 +1,6 @@
 ;;; chess-game.el --- Maintain a chess game that is being played or viewed
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -231,7 +231,7 @@ If INDEX is nil, the last played ply is returned."
 (defun chess-game-add-ply (game ply)
   "Add PLY to the main variation of GAME."
   (cl-assert game)
-  (cl-check-type ply listp)
+  (cl-check-type ply list)
   (let ((plies (chess-game-plies game)))
     (if plies
 	(nconc plies (list ply))

@@ -1,6 +1,6 @@
 ;;; chess-network.el --- Play against an opponent over the network
 
-;; Copyright (C) 2002, 2003, 2008  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -126,6 +126,8 @@
 
 (defvar chess-network-kind)
 (make-variable-buffer-local 'chess-network-kind)
+
+(defvar chess-full-name)
 
 (defun chess-network-handler (game event &rest args)
   "Initialize the network chess engine."
