@@ -144,7 +144,7 @@
 						  (string-to-number
 						   (read-string "Port: ")))
 		    (start-process "*chess-network*"
-				   (current-buffer) "/usr/bin/nc"
+				   (current-buffer) (executable-find "nc")
 				   "-l" "-p" (read-string "Port: ")))
 		(open-network-stream "*chess-network*" (current-buffer)
 				     (read-string "Host: ")
