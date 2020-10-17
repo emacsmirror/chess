@@ -1,6 +1,6 @@
-;;; chess-autosave.el --- A special kind of display that merely autosaves the game
+;;; chess-autosave.el --- A special kind of display that merely autosaves the game  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (C) 2002, 2004, 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -32,8 +32,7 @@
 
 (defcustom chess-autosave-file "~/.chess-save"
   "Filename in which to autosave chess games."
-  :type '(choice file (const :tag "Do not auto-save" nil))
-  :group 'chess-autosave)
+  :type '(choice file (const :tag "Do not auto-save" nil)))
 
 (defcustom chess-autosave-database nil
   "If non-nil, a chess database file in which completed games are appended.
@@ -42,8 +41,7 @@ work of saving the game object to whichever database(s) it chooses.
 Whether it closes those databases or caches them for later use is up
 to the user."
   :type '(choice (const :tag "Do not save completed games" nil)
-		 file function)
-  :group 'chess-autosave)
+		 file function))
 
 (chess-message-catalog 'english
   '((chess-read-autosave    . "There is a chess autosave file, read it? ")
@@ -115,7 +113,7 @@ to the user."
 	(setq changes (cdr changes)))))
   (insert ")"))
 
-(defun chess-autosave-write (game file)
+(defun chess-autosave-write (game _file)
   "Write a chess GAME to FILE as raw Lisp." ;FIXME: `file' is not used!
   (let ((index (chess-game-index game)))
     (if (or (= 1 index) (and (bobp) (eobp)))
@@ -135,7 +133,7 @@ to the user."
     (basic-save-buffer)
     (message nil)))
 
-(defun chess-autosave-read (game file)
+(defun chess-autosave-read (game _file)
   "Read a chess game as raw Lisp from FILE." ;FIXME: `file' is not used!
   (goto-char (point-min))
   (chess-game-set-tags game (read (current-buffer)))

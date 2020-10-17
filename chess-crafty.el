@@ -1,6 +1,6 @@
-;;; chess-crafty.el --- Play against crafty!
+;;; chess-crafty.el --- Play against crafty!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -33,9 +33,8 @@
 
 (defcustom chess-crafty-path (or (executable-find "crafty")
 				 (executable-find "wcrafty"))
-  "*The path to the crafty executable."
-  :type 'file
-  :group 'chess-crafty)
+  "The path to the crafty executable."
+  :type 'file)
 
 (defvar chess-crafty-evaluation nil)
 
@@ -176,7 +175,7 @@
 	       (= 1 (mod (car args) 2)))
 	  (error "Cannot undo until after crafty moves"))
 
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-crafty)
 

@@ -1,6 +1,6 @@
-;;; chess-ics.el --- Play on Internet Chess Servers
+;;; chess-ics.el --- Play on Internet Chess Servers  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2003, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -66,8 +66,7 @@ The format of each entry is:
 		       (choice (const :tag "Direct connection" nil)
 			       (file :tag "Command"))
 		       (choice (const :tag "No arguments" nil)
-			       (repeat string))))
-  :group 'chess-ics)
+			       (repeat string)))))
 
 
 
@@ -93,15 +92,13 @@ The format is (SERVER COMMANDS...) where SERVER is either the server-name
 \(see `chess-ics-server-list') or nil, which is the default to use for all
 servers which do not have a specialized entry in this list.  COMMAND is a
 string which should be sent (newline characters will be added automatically.)"
-  :group 'chess-ics
   :type '(repeat
 	  (list :tag "Initialisation for"
 		(choice (string :tag "Server Name") (const :tag "Default" nil))
 		(repeat :inline t (string :tag "Command")))))
 
 (defcustom chess-ics-prompt-regexp "\\(?:[0-2][0-9]:[0-6][0-9]_\\)?[af]ics% $"
-  "*Regexp which matches an ICS prompt."
-  :group 'chess-ics
+  "Regexp which matches an ICS prompt."
   :type 'regexp)
 
 (defvar chess-ics-server nil
@@ -127,8 +124,7 @@ and ICC.")
 (make-variable-buffer-local 'chess-ics-server-type)
 
 (defcustom chess-ics-icc-datagrams '(22 23 26 33 50 51 56 110 111)
-  "*A list of datagrams to request when connecting to ICC."
-  :group 'chess-ics
+  "A list of datagrams to request when connecting to ICC."
   :type '(repeat (choice (const :tag "DG_SEND_MOVES" 24)
 			 (const :tag "DG_KIBITZ" 26)
 			 (const :tag "DG_MOVE_ALGEBRAIC" 33)
@@ -213,9 +209,9 @@ standard position).  In those cases, this variable should be set to nil.")
 	 (function
 	  (lambda ()
 	    (when chess-ics-handling-login
-	      (setq chess-ics-server-type 'ICC
-		    comint-preoutput-filter-functions
-		    '(chess-icc-preoutput-filter)))
+	      (setq chess-ics-server-type 'ICC)
+	      (add-hook 'comint-preoutput-filter-functions
+		        #'chess-icc-preoutput-filter nil t))
 	    'once)))
    (cons "\\(ogin\\|name\\):"
 	 (function
@@ -224,7 +220,7 @@ standard position).  In those cases, this variable should be set to nil.")
 	      (chess-ics-send
 	       (format "level2settings=%s"
 		       (let ((str (make-string
-				   (1+ (apply 'max chess-ics-icc-datagrams))
+				   (1+ (apply #'max chess-ics-icc-datagrams))
 				   ?0)))
 			 (dolist (dg chess-ics-icc-datagrams str)
 			   (aset str dg ?1))))))
@@ -260,7 +256,7 @@ standard position).  In those cases, this variable should be set to nil.")
 	 (function
 	  (lambda ()
 	    (chess-ics-send
-	     (mapconcat 'identity
+	     (mapconcat #'identity
 			(cdr
 			 (or
 			  (assoc chess-ics-server chess-ics-initial-commands)
@@ -682,17 +678,14 @@ See `chess-ics-game'.")
 
 (defcustom chess-ics-popup-sought t
   "If non-nil, display the sought buffer automatically."
-  :group 'chess-ics
   :type 'boolean)
 
 (defcustom chess-ics-sought-buffer-name "*chess-ics-sought*"
   "The name of the buffer which accumulates seek ads."
-  :group 'chess-ics
   :type 'string)
 
 (define-derived-mode chess-ics-ads-mode tabulated-list-mode "ICSAds"
   "Mode for displaying sought games from Internet Chess Servers."
-  :group 'chess-ics
   (setq tabulated-list-format [("Player" 20 t)
 			       ("Rating" 10 t :right-align t)
 			       ("Rated" 5 nil :right-align t)
@@ -778,7 +771,8 @@ This function should be put on `comint-preoutput-filter-functions'."
 		(tabulated-list-revert))))))))
   string)
 
-(make-variable-buffer-local 'comint-preoutput-filter-functions)
+;; FIXME: This is evil!
+;;(make-variable-buffer-local 'comint-preoutput-filter-functions)
 
 ;;;###autoload
 (defun chess-ics (server port &optional handle password-or-filename
@@ -801,7 +795,7 @@ This function should be put on `comint-preoutput-filter-functions'."
     (setq handle "guest"))
   (chess-message 'ics-connecting server)
   (let ((buf (if helper
-		 (apply 'make-comint "chess-ics" helper nil helper-args)
+		 (apply #'make-comint "chess-ics" helper nil helper-args)
 	       (make-comint "chess-ics" (cons server port)))))
     (chess-message 'ics-connected server)
     (set-buffer buf)
@@ -818,9 +812,9 @@ This function should be put on `comint-preoutput-filter-functions'."
 	  chess-engine-regexp-alist (copy-alist chess-ics-matcher-alist)
 	  comint-prompt-regexp "^[^%\n]*% *"
 	  comint-scroll-show-maximum-output t)
-    (add-hook 'comint-output-filter-functions 'chess-engine-filter t t)
-    (setq comint-preoutput-filter-functions
-	  '(chess-ics-ads-removed chess-ics-seeking))
+    (add-hook 'comint-output-filter-functions #'chess-engine-filter t t)
+    (add-hook 'comint-preoutput-filter-functions #'chess-ics-seeking nil t)
+    (add-hook 'comint-preoutput-filter-functions #'chess-ics-ads-removed nil t)
     (let ((ntimes 50))
       (while (and chess-ics-handling-login
 		  (> (setq ntimes (1- ntimes)) 0))
@@ -1091,7 +1085,7 @@ This function should be put on `comint-preoutput-filter-functions'."
       (chess-ics-send "resign" (chess-game-data game 'ics-buffer)))
 
      (t
-      (apply 'chess-network-handler game event args)))))
+      (apply #'chess-network-handler game event args)))))
 
 (provide 'chess-ics)
 

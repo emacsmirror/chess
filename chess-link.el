@@ -1,6 +1,6 @@
-;;; chess-link.el --- Connect two engines
+;;; chess-link.el --- Connect two engines  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -42,13 +42,14 @@
      (t
       (let ((chess-engine-inhibit-auto-pass t))
 	(setq return-value
-	      (apply 'chess-engine-default-handler event args)))
+	      (apply #'chess-engine-default-handler event args)))
 
       ;; but now transfer the event to the other engine
-      (apply 'chess-engine-command
+      (apply #'chess-engine-command
 	     (if (eq (current-buffer) first-engine)
 		 second-engine
-	       first-engine) event args)
+	       first-engine)
+	     event args)
 
       return-value))))
 

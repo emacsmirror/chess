@@ -1,6 +1,6 @@
-;;; chess-images.el --- Chessboard display style using graphical images
+;;; chess-images.el --- Chessboard display style using graphical images  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2005, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Keywords: games
@@ -54,8 +54,7 @@
 
 (defcustom chess-images-separate-frame (display-multi-frame-p)
   "If non-nil, display the chessboard in its own frame."
-  :type 'boolean
-  :group 'chess-images)
+  :type 'boolean)
 
 (defcustom chess-images-directory
   (if (file-directory-p "/usr/share/games/xboard/pixmaps")
@@ -83,8 +82,7 @@ for all squares.  If you want really custom pieces, you can use the
 symbolic colors dark_square, light_square and dark_piece and
 light_piece."
   :type 'directory
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-default-size nil
   "The default pixel width to use for chess pieces.
@@ -92,8 +90,7 @@ If this width is not available, then next smallest will be chosen.
 If there is none smaller, then the best size available will be chosen.
 If `chess-images-default-size' is nil (the default), then the best
 width for the current display is calculated used."
-  :type '(choice integer (const :tag "Best fit" nil))
-  :group 'chess-images)
+  :type '(choice integer (const :tag "Best fit" nil)))
 
 (defcustom chess-images-background-image "blank"
   "The name of the file used for background squares.
@@ -101,69 +98,59 @@ This file is optional.  If there is no file available by this name, a
 solid color square will be created and used.  This option exists so
 that specialized squares may be used such as marble tiles, etc."
   :type 'file
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-border-color (cdr (assq 'background-color
 						(frame-parameters)))
   "Color to use for the border around pieces."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-dark-color
   (if (display-color-p) "#77a26d" "gray60")
   "Color to use for \"dark\" background squares."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-light-color
   (if (display-color-p) "#c8c365" "gray80")
   "Color to use for \"light\" background squares."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-black-color
   (if (display-color-p) "#202020" "gray0")
   "Color to use for \"black\" pieces."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-white-color
   (if (display-color-p) "#ffffcc" "gray100")
   "Color to use for \"white\" pieces."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-highlight-color
   (if (display-color-p) "#add8e6" "gray90")
   "Color to use for highlighting pieces that have been selected."
   :type 'color
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-extension "xpm"
   "The file extension used for chess display bitmaps."
   :type 'file
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
 (defcustom chess-images-border-width 2
   "This defines the width of the border that surrounds each piece."
   :type '(choice integer (const :tag "No border" nil))
-  :set 'chess-images-clear-image-cache
-  :group 'chess-images)
+  :set #'chess-images-clear-image-cache)
 
-(defcustom chess-images-popup-function 'chess-images-popup
+(defcustom chess-images-popup-function #'chess-images-popup
   "The function used to popup a chess-images display.
 The current-buffer is set to the display buffer when this function is
 called."
-  :type 'function
-  :group 'chess-images)
+  :type 'function)
 
 ;;; Code:
 
@@ -192,13 +179,13 @@ called."
     (funcall chess-images-popup-function))
 
    ((eq event 'draw)
-    (apply 'chess-images-draw args))
+    (apply #'chess-images-draw args))
 
    ((eq event 'draw-square)
-    (apply 'chess-images-draw-square args))
+    (apply #'chess-images-draw-square args))
 
    ((eq event 'highlight)
-    (apply 'chess-images-highlight args))
+    (apply #'chess-images-highlight args))
 
    ((eq event 'start-edit)
     (setq cursor-type t))
@@ -419,7 +406,7 @@ They are returned in ascending order, or nil for no sizes available."
     (insert "\"  c red s void\",\n")
     (insert "\". c red s background\",\n")
     (insert "/* pixels */\n")
-    (dotimes (i height)
+    (dotimes (_ height)
       (insert ?\" (make-string (or width height) ?.) ?\" ?, ?\n))
     (delete-char -2)
     (insert "\n};\n")
@@ -455,9 +442,9 @@ This is necessary for bizzare Emacs reasons."
 	  (forward-line (1+ colors))
 	  (while (looking-at "/\\*")
 	    (forward-line))
-	  (dotimes (i add-height)
+	  (dotimes (_ add-height)
 	    (insert "\"")
-	    (dotimes (j width)
+	    (dotimes (_ width)
 	      (insert color-char))
 	    (insert "\",\n"))))
     (buffer-string)))

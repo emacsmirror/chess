@@ -1,6 +1,6 @@
-;;; chess-eco.el --- Chess opening classification
+;;; chess-eco.el --- Chess opening classification  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2004-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games
@@ -31,8 +31,7 @@
   :group 'chess)
 
 (defcustom chess-eco-max-index 36
-  "*Index at which to stop chess opening announcements."
-  :group 'chess-eco
+  "Index at which to stop chess opening announcements."
   :type 'integer)
 
 (defvar chess-eco-hash-table
@@ -69,7 +68,7 @@
 			   (car entry) (cadr entry))
 		  (let ((pos (chess-pos-create)))
 		    (mapc (lambda (move)
-			    (apply 'chess-pos-move
+			    (apply #'chess-pos-move
 				   pos (chess-ply-changes
 					(chess-algebraic-to-ply pos move))))
 			  (split-string (car (cddr entry)) " " t))

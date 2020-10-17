@@ -1,6 +1,6 @@
-;;; chess-message.el --- Code shared by all chess displays
+;;; chess-message.el --- Code shared by all chess displays  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -25,8 +25,7 @@
 
 (defcustom chess-message-language 'english
   "The language to use when reporting messages."
-  :type 'symbol
-  :group 'chess-message)
+  :type 'symbol)
 
 ;;; Code:
 
@@ -46,14 +45,14 @@
   (let* ((entry (assq chess-message-language chess-message-catalog))
 	 (msg (and entry (cdr (assq key (cdr entry))))))
     (if msg
-	(apply 'format msg arguments)
+	(apply #'format msg arguments)
       (format "Message not found: %s" key))))
 
 (defsubst chess-message (key &rest arguments)
-  (message (apply 'chess-string key arguments)))
+  (message (apply #'chess-string key arguments)))
 
 (defsubst chess-error (key &rest arguments)
-  (error (apply 'chess-string key arguments)))
+  (error (apply #'chess-string key arguments)))
 
 (put 'chess-message-catalog 'lisp-indent-function 1)
 

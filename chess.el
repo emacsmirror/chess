@@ -1,6 +1,6 @@
-;;; chess.el --- Play chess in GNU Emacs
+;;; chess.el --- Play chess in GNU Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2001, 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2001-2020 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -97,8 +97,7 @@
   "Default display to be used when starting a chess session.
 A list indicates a series of alternatives if the first display is
 not available."
-  :type '(choice symbol (repeat symbol))
-  :group 'chess)
+  :type '(choice symbol (repeat symbol)))
 
 (defcustom chess-default-modules
   '((chess-sound chess-announce)
@@ -111,8 +110,7 @@ not available."
 A sublist indicates a series of alternatives, if the first is not
 available.
 These can do just about anything."
-  :type '(repeat (choice symbol (repeat symbol)))
-  :group 'chess)
+  :type '(repeat (choice symbol (repeat symbol))))
 
 (defcustom chess-default-engine
   '(chess-crafty
@@ -122,19 +120,16 @@ These can do just about anything."
   "Default engine to be used when starting a chess session.
 A list indicates a series of alternatives if the first engine is not
 available."
-  :type '(choice symbol (repeat symbol))
-  :group 'chess)
+  :type '(choice symbol (repeat symbol)))
 
 (defcustom chess-full-name (user-full-name)
   "The full name to use when playing chess."
-  :type 'string
-  :group 'chess)
+  :type 'string)
 
 (and (fboundp 'font-lock-add-keywords)
      (font-lock-add-keywords
       'emacs-lisp-mode
-      '(("(\\(chess-error\\)\\>"	       1 font-lock-warning-face)
-	("(\\(chess-with-current-buffer\\)\\>" 1 font-lock-keyword-face))))
+      '(("(\\(chess-error\\)\\>"	       1 font-lock-warning-face))))
 
 (defun chess--create-display (module game my-color disable-popup)
   (let ((display (chess-display-create game module my-color)))
@@ -145,7 +140,7 @@ available."
       display)))
 
 (defun chess--create-engine (module game response-handler ctor-args)
-  (let ((engine (apply 'chess-engine-create module game
+  (let ((engine (apply #'chess-engine-create module game
 		       response-handler ctor-args)))
     (when engine
       ;; for the sake of engines which are ready to play now, and
@@ -208,7 +203,7 @@ Otherwise use `chess-default-engine' to determine the engine."
 					'chess--create-display
 					game my-color disable-popup))
     (when (car objects)
-      (mapc 'chess-display-update objects)
+      (mapc #'chess-display-update objects)
       (chess-module-set-leader (car objects))
       (unless disable-popup
 	(chess-display-popup (car objects))))

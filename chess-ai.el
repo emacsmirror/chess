@@ -1,6 +1,6 @@
-;;; chess-ai.el --- A native Emacs Lisp Chess playing module
+;;; chess-ai.el --- A native Emacs Lisp Chess playing module  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 
@@ -50,52 +50,42 @@ reply moves.  You can only specify the search depth (see `chess-ai-depth')."
 
 If `chess-ai-quiescence' is non-nil, quiescence search will be performed after
 this ply depth limit has been reached."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-quiescence-depth 2
   "Search depth for quiescence search."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-pawn-value 100
   "Value of a Pawn."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-knight-value 300
   "Value of a Knight."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-bishop-value 300
   "Value of a Bishop."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-rook-value 500
   "Value of a Rook."
-  :group 'chess-ai
   :type 'intger)
 
 (defcustom chess-ai-queen-value 900
   "Value of a Queen."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-passed-pawn 50
   "Extra score for a passed Pawn."
-  :group 'chess-ai
   :type 'integer)
 
 (defcustom chess-ai-mobility t
   "Non-nil if piece mobility should be considered during static evaluation."
-  :group 'chess-ai
   :type 'boolean)
 
 (defcustom chess-ai-quiescence t
   "Non-nil if quiescence search should be performed."
-  :group 'chess-ai
   :type 'boolean)
 
 ;;;; Static evaluation
@@ -335,7 +325,7 @@ DEPTH defaults to the value of `chess-ai-depth'."
 						     position))
 		       (chess-ai-best-move position))))))
 
-     (t (apply 'chess-common-handler game event args)))))
+     (t (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-ai)
 ;;; chess-ai.el ends here

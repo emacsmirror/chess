@@ -1,6 +1,6 @@
-;;; chess-pgn.el --- Convert a chess game to/from Portable Game Notation (PGN)
+;;; chess-pgn.el --- Convert a chess game to/from Portable Game Notation (PGN)  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2008, 2014, 2017  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -181,7 +181,7 @@ Optionally use the supplied STRING instead of the current buffer."
       (chess-pgn-insert-plies game index ann))))
 
 (defun chess-pgn-insert-plies (game index plies &optional
-				     for-black indented no-annotations)
+				     for-black _indented no-annotations)
   "NYI: Still have to implement INDENTED argument."
   (while plies
     (unless for-black
@@ -232,7 +232,7 @@ PGN text."
 	      tags (cdr tags))))
     index))
 
-(defun chess-insert-pgn (game &optional indented)
+(defun chess-insert-pgn (game &optional _indented)
   (let ((fen (chess-game-tag game "FEN"))
 	(first-pos (chess-game-pos game 0)))
     (when (and fen (not (string= fen (chess-pos-to-fen first-pos))))
@@ -323,11 +323,11 @@ PGN text."
   (if (fboundp 'font-lock-mode)
       (font-lock-mode 1))
   (set (make-local-variable 'pcomplete-default-completion-function)
-       'chess-pgn-completions)
+       #'chess-pgn-completions)
   (set (make-local-variable 'pcomplete-command-completion-function)
-       'chess-pgn-completions)
+       #'chess-pgn-completions)
   (set (make-local-variable 'pcomplete-parse-arguments-function)
-       'chess-pgn-current-word))
+       #'chess-pgn-current-word))
 
 ;;;###autoload
 (defalias 'pgn-mode 'chess-pgn-mode)
@@ -362,7 +362,7 @@ PGN text."
   (let ((position (chess-game-pos chess-pgn-current-game
 				  chess-pgn-current-index)))
     (while (pcomplete-here
-	    (mapcar 'chess-ply-to-algebraic
+	    (mapcar #'chess-ply-to-algebraic
 		    (chess-legal-plies position :color
 				       (chess-pos-side-to-move position)))))))
 
@@ -469,7 +469,7 @@ This does not require that the buffer be in PGN mode."
 
 (defun chess-pgn-mouse-show-position (event)
   (interactive "e")
-  (if (fboundp 'event-window)		; XEmacs
+  (if (featurep 'xemacs)
       (progn
 	(set-buffer (window-buffer (event-window event)))
 	(and (event-point event) (goto-char (event-point event))))

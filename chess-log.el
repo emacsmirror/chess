@@ -1,6 +1,6 @@
-;;; chess-log.el --- Log chess events, as an aid to debugging
+;;; chess-log.el --- Log chess events, as an aid to debugging  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -27,7 +27,7 @@
 
 (defun chess-log (&rest args)
   (with-current-buffer (get-buffer-create "*Chess Log*")
-    (insert (apply 'format args) ?\n)))
+    (insert (apply #'format args) ?\n)))
 
 (provide 'chess-log)
 

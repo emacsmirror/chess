@@ -1,6 +1,6 @@
-;;; chess-stockfish.el --- Play against stockfish!
+;;; chess-stockfish.el --- Play against stockfish!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -29,9 +29,8 @@
   :link '(url-link "http://www.stockfishchess.com"))
 
 (defcustom chess-stockfish-path (executable-find "stockfish")
-  "*The path to the stockfish executable."
-  :type 'file
-  :group 'chess-stockfish)
+  "The path to the stockfish executable."
+  :type 'file)
 
 (defvar chess-stockfish-regexp-alist
   (append
@@ -62,7 +61,7 @@
 	       (= 1 (mod (car args) 2)))
 	  (error "Cannot undo until after stockfish moves"))
 
-      (apply 'chess-uci-handler game event args)))))
+      (apply #'chess-uci-handler game event args)))))
 
 (provide 'chess-stockfish)
 

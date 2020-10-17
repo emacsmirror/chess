@@ -1,6 +1,6 @@
-;;; chess-german.el --- German translation of the chess.el message catalog
+;;; chess-german.el --- German translation of the chess.el message catalog  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, i18n

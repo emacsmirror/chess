@@ -1,6 +1,6 @@
 ;;; chess-polyglot.el --- Polyglot chess book access for Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014, 2020-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: data, games
@@ -56,7 +56,6 @@ A value above 1.0 means to prefer known good moves while a value below
 1.0 means to penalize known good moves.  0.0 will force uniform
 distribution of move weights.  For reasons of numerical overflow,
 this should be strictly less than 4.0."
-  :group 'chess-polyglot
   :type '(float :match (lambda (widget value) (and (>= value 0) (< value 4)))))
 
 (defvar chess-polyglot-book nil
@@ -541,8 +540,7 @@ distribute the probability that a move gets picked."
   "Path to default polyglot book file.
 
 This is used by UCI based engines as well as the internal AI."
-  :group 'chess-polyglot
-  :set 'chess-polyglot-book-reload
+  :set #'chess-polyglot-book-reload
   :type '(file :must-match t))
 
 (provide 'chess-polyglot)

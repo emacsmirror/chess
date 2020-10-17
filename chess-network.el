@@ -1,4 +1,4 @@
-;;; chess-network.el --- Play against an opponent over the network
+;;; chess-network.el --- Play against an opponent over the network  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
@@ -236,7 +236,7 @@
       (chess-common-handler game 'flag-fell))
 
      (t
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-network)
 

@@ -1,6 +1,6 @@
-;;; chess-transport.el --- Example generic transport
+;;; chess-transport.el --- Example generic transport  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -51,7 +51,7 @@
 
      (t
       ;; Pass all other events down to chess-network
-      (apply 'chess-network-handler game event args)))))
+      (apply #'chess-network-handler game event args)))))
 
 ;; Call `(chess-engine-submit engine STRING)' for text that arrives
 ;; from the inbound transport

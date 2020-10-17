@@ -1,4 +1,4 @@
-;;; chess-uci.el --- Common functions for the Universal Chess Interface protocol
+;;; chess-uci.el --- Common functions for the Universal Chess Interface protocol  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
@@ -26,6 +26,7 @@
 ;;; Code:
 
 (eval-when-compile (require 'cl-lib))
+(require 'chess)                        ;For `chess-full-name'
 (require 'chess-common)
 (require 'chess-polyglot)
 
@@ -135,7 +136,7 @@ If conversion fails, this function fired an 'illegal event."
 	  (chess-engine-send nil (concat (chess-uci-position game) "go\n")))))
 
      (t
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-uci)
 

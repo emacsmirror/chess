@@ -1,6 +1,6 @@
-;;; chess-file.el --- Handle chess databases stored in PGN or EPD files
+;;; chess-file.el --- Handle chess databases stored in PGN or EPD files  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -106,7 +106,7 @@ inbetween of individual records.")
     (goto-char (point-max))
     (while (memq (char-before) '(?  ?\t ?\n ?\r))
       (delete-char -1))
-    (apply 'insert (nth 4 (assq chess-file-type chess-file-types)))
+    (apply #'insert (nth 4 (assq chess-file-type chess-file-types)))
     (push (point) chess-file-locations)
     (funcall (nth 3 (assq chess-file-type chess-file-types)) (car args))
     (1- (chess-file-handler 'count)))

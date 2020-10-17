@@ -1,6 +1,6 @@
-;;; chess-module.el --- Basic module support code underlying all chess.el modules
+;;; chess-module.el --- Basic module support code underlying all chess.el modules  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Keywords: games
@@ -36,13 +36,13 @@
   '((no-such-module . "There is no module named '%s'")))
 
 (defmacro chess-with-current-buffer (buffer &rest body)
+  ;; FIXME: Beware, this doubles the code size!
+  (declare (debug t) (indent 1))
   `(let ((buf ,buffer))
      (if buf
 	 (with-current-buffer buf
 	   ,@body)
        ,@body)))
-
-(put 'chess-with-current-buffer 'lisp-indent-function 1)
 
 (defun chess-module-create (derived game &optional buffer-name
 				    &rest ctor-args)
@@ -56,7 +56,7 @@
       (if (not (apply handler game 'initialize ctor-args))
 	  (ignore
 	   (kill-buffer (current-buffer)))
-	(add-hook 'kill-buffer-hook 'chess-module-destroy nil t)
+	(add-hook 'kill-buffer-hook #'chess-module-destroy nil t)
 	(setq chess-module-event-handler handler)
 	(chess-module-set-game* nil game)
 	(current-buffer)))))
@@ -72,7 +72,7 @@
 (defun chess-module-detach-game (module)
   (chess-with-current-buffer module
     (chess-game-remove-hook chess-module-game
-			    'chess-module-event-handler
+			    #'chess-module-event-handler
 			    (or module (current-buffer)))
     ;; if we are the leader, shutdown the game we were attached to
     ;; previously
@@ -90,7 +90,7 @@
     (if chess-module-game
 	(chess-module-detach-game nil))
     (setq chess-module-game game)
-    (chess-game-add-hook game 'chess-module-event-handler
+    (chess-game-add-hook game #'chess-module-event-handler
 			 (or module (current-buffer)))))
 
 (defsubst chess-module-leader-p (module)
@@ -109,7 +109,7 @@
   (let ((buf (or module (current-buffer))))
     (when (buffer-live-p buf)
       (with-current-buffer buf
-	(remove-hook 'kill-buffer-hook 'chess-module-destroy t)
+	(remove-hook 'kill-buffer-hook #'chess-module-destroy t)
 	(chess-module-detach-game nil))
       (kill-buffer buf))))
 

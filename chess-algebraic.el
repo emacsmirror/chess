@@ -1,6 +1,6 @@
-;;; chess-algebraic.el --- Convert a ply to/from standard chess algebraic notation
+;;; chess-algebraic.el --- Convert a ply to/from standard chess algebraic notation  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -171,7 +171,7 @@ This regexp matches short, long and figurine notation.")
 	    (nconc changes (list type move)))
 
 	  (condition-case err
-	      (apply 'chess-ply-create position trust changes)
+	      (apply #'chess-ply-create position trust changes)
 	    (error
 	     (chess-error 'at-move-string
 			  move (error-message-string err)))))))))

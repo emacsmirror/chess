@@ -1,6 +1,6 @@
-;;; chess-irc.el --- This transport uses an IRC bot to send/receive moves.
+;;; chess-irc.el --- This transport uses an IRC bot to send/receive moves.  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -19,6 +19,7 @@
 
 ;;; Code:
 
+(require 'chess)                        ;For `chess-full-name'
 (require 'chess-network)
 
 (defgroup chess-irc nil
@@ -27,18 +28,15 @@
 
 (defcustom chess-irc-server "irc.openprojects.net"
   "The IRC host to connect your chess-irc engine to."
-  :type 'string
-  :group 'chess-irc)
+  :type 'string)
 
 (defcustom chess-irc-port 6667
   "The port of the IRC host specified by `chess-irc-server'."
-  :type 'string
-  :group 'chess-irc)
+  :type 'string)
 
 (defcustom chess-irc-nick (user-login-name)
   "The nick you wish to use for sending/receiving IRC chess moves."
-  :type 'string
-  :group 'chess-irc)
+  :type 'string)
 
 ;;; Code:
 
@@ -113,7 +111,7 @@
 			     (format "PRIVMSG %s :%s\n"
 				     chess-irc-opponent (car args)))))
      (t
-      (apply 'chess-network-handler game event args)))))
+      (apply #'chess-network-handler game event args)))))
 
 ;; This filter translates IRC syntax into basic chess-network protocol
 (defun chess-irc-filter (proc string)

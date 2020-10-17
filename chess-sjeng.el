@@ -1,6 +1,6 @@
-;;; chess-sjeng.el --- Play against sjeng!
+;;; chess-sjeng.el --- Play against sjeng!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2004  Free Software Foundation, Inc.
+;; Copyright (C) 2004-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -20,6 +20,7 @@
 
 ;;; Code:
 
+(require 'chess)                        ;For `chess-full-name'
 (require 'chess-common)
 (require 'chess-fen)
 (require 'chess-pgn)
@@ -31,9 +32,8 @@
   :link '(url-link "http://sjeng.sourceforge.net"))
 
 (defcustom chess-sjeng-path (executable-find "sjeng")
-  "*The path to the sjeng executable."
-  :type 'file
-  :group 'chess-sjeng)
+  "The path to the sjeng executable."
+  :type 'file)
 
 (defvar chess-sjeng-evaluation nil)
 
@@ -115,7 +115,7 @@
 	       (= 1 (mod (car args) 2)))
 	  (error "Cannot undo until after sjeng moves"))
 
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-sjeng)
 

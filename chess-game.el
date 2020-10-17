@@ -1,4 +1,4 @@
-;;; chess-game.el --- Maintain a chess game that is being played or viewed
+;;; chess-game.el --- Maintain a chess game that is being played or viewed  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
@@ -295,11 +295,12 @@ progress (nil), if it is drawn, resigned, mate, etc."
   (cl-assert game)
   (cl-assert (listp ply))
   (let ((current-ply (chess-game-ply game))
-	(position (chess-ply-pos ply))
 	(changes (chess-ply-changes ply)))
 
     (cl-assert current-ply)
-    (cl-assert (and position (eq position (chess-ply-pos current-ply))))
+    (cl-assert
+     (let ((position (chess-ply-pos ply)))
+       (and position (eq position (chess-ply-pos current-ply)))))
     (cl-assert changes)
 
     (if (chess-ply-final-p current-ply)

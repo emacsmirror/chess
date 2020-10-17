@@ -1,6 +1,6 @@
-;;; chess-fruit.el --- Play against fruit!
+;;; chess-fruit.el --- Play against fruit!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -28,9 +28,8 @@
   :link '(url-link "http://www.fruitchess.com/"))
 
 (defcustom chess-fruit-path (executable-find "fruit")
-  "*The path to the fruit executable."
-  :type 'file
-  :group 'chess-fruit)
+  "The path to the fruit executable."
+  :type 'file)
 
 (defvar chess-fruit-regexp-alist chess-uci-regexp-alist
   "Patterns used to match engine output.")
@@ -50,7 +49,7 @@
 	       (= 1 (mod (car args) 2)))
 	  (error "Cannot undo until after fruit moves"))
 
-      (apply 'chess-uci-handler game event args)))))
+      (apply #'chess-uci-handler game event args)))))
 
 (provide 'chess-fruit)
 

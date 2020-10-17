@@ -1,6 +1,6 @@
-;;; chess-plain.el --- Plain ASCII chess display
+;;; chess-plain.el --- Plain ASCII chess display  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2005, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -40,7 +40,6 @@
 
 (defcustom chess-plain-border-style [?+ ?- ?+ ?| ?| ?+ ?- ?+]
   "If non-nil, a vector describing the border characters."
-  :group 'chess-plain
   :type '(choice (const :tag "No border" nil)
 		 (vector :tag "Plain ASCII"
 			 (const :value ?+ :tag "Upper left corner: +")
@@ -72,12 +71,10 @@
 
 (defcustom chess-plain-black-square-char ?.
   "Character used to indicate empty black squares."
-  :group 'chess-plain
   :type 'character)
 
 (defcustom chess-plain-white-square-char ?.
   "Character used to indicate empty white squares."
-  :group 'chess-plain
   :type 'character)
 
 (defcustom chess-plain-piece-chars '((?K . ?K)
@@ -95,7 +92,6 @@
   "Alist of pieces and their corresponding characters.
 Characters defined here should make sense in respect to the current setting
 of `chess-plain-upcase-indicates'."
-  :group 'chess-plain
   :type '(choice (list :tag "White has uppercase english letters and black has lowercase english letters"
 		       (const :tag "White King: K"   (?K . ?K))
 		       (const :tag "White Queen: Q"  (?Q . ?Q))
@@ -195,44 +191,37 @@ lowercase char a black piece.  Possible values: 'color (default),
 'square-color.  If set to 'square-color, a uppercase character
 indicates a piece on a black square. (Note that you also need to
 modify `chess-plain-piece-chars' to avoid real confusion.)"
-  :group 'chess-plain
   :type '(choice (const :tag "Upcase indicates white piece" color)
 		 (const :tag "Upcase indicates black square" square-color)))
 
 (defcustom chess-plain-spacing 1
   "Number of spaces between files."
-  :group 'chess-plain
   :type 'integer)
 
 (defface chess-plain-black-face
   '((((class color) (background light)) (:foreground "Black"))
     (((class color) (background dark)) (:foreground "Green"))
     (t (:bold t)))
-  "The face used for black pieces on the ASCII display."
-  :group 'chess-plain)
+  "The face used for black pieces on the ASCII display.")
 
 (defface chess-plain-white-face
   '((((class color) (background light)) (:foreground "Blue"))
     (((class color) (background dark)) (:foreground "Yellow"))
     (t (:bold t)))
-  "The face used for white pieces on the ASCII display."
-  :group 'chess-plain)
+  "The face used for white pieces on the ASCII display.")
 
 (defface chess-plain-highlight-face
   '((((class color) (background light)) (:background "#add8e6"))
     (((class color) (background dark)) (:background "#add8e6")))
-  "Face to use for highlighting pieces that have been selected."
-  :group 'chess-plain)
+  "Face to use for highlighting pieces that have been selected.")
 
-(defcustom chess-plain-popup-function 'chess-plain-popup
+(defcustom chess-plain-popup-function #'chess-plain-popup
   "The function used to popup a chess-plain display."
-  :type 'function
-  :group 'chess-plain)
+  :type 'function)
 
 (defcustom chess-plain-separate-frame nil
   "If non-nil, display the chessboard in its own frame."
-  :type 'boolean
-  :group 'chess-plain)
+  :type 'boolean)
 
 ;;; Code:
 
@@ -314,14 +303,14 @@ PERSPECTIVE is t for white or nil for black."
 	(setq file (if inverted 7 0)
 	      rank (if inverted (1- rank) (1+ rank))))
       (if chess-plain-border-style
-	  (insert ?  (aref chess-plain-border-style 5)
+	  (insert ?\s (aref chess-plain-border-style 5)
 		  (make-string (+ 8 (* 7 chess-plain-spacing))
 			       (aref chess-plain-border-style 6))
 		  (aref chess-plain-border-style 7) ?\n
-		  ? ?  
+		  ?\s ?\s
 		  (let ((string (if (not inverted) "abcdefgh" "hgfedcba")))
-		    (mapconcat 'string (string-to-list string) 
-			       (make-string chess-plain-spacing ? )))))
+		    (mapconcat #'string (string-to-list string)
+			       (make-string chess-plain-spacing ?\s)))))
       (set-buffer-modified-p nil)
       (goto-char pos))))
 

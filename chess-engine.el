@@ -1,6 +1,6 @@
-;;; chess-engine.el --- Obtain movements and other information from an engine
+;;; chess-engine.el --- Obtain movements and other information from an engine  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -310,7 +310,7 @@ If conversion fails, this function fired an 'illegal event."
 				 &rest handler-ctor-args)
   "Create a new chess engine MODULE (a symbol) associated with GAME.
 Optionally supply a new RESPONSE-HANDLER."
-  (let* ((engine (apply 'chess-module-create module game nil
+  (let* ((engine (apply #'chess-module-create module game nil
 			handler-ctor-args)))
     (when engine
       (with-current-buffer engine

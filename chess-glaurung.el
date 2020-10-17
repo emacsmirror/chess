@@ -1,6 +1,6 @@
-;;; chess-glaurung.el --- Play against glaurung!
+;;; chess-glaurung.el --- Play against glaurung!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -29,9 +29,8 @@
   :link '(url-link "http://www.glaurungchess.com/"))
 
 (defcustom chess-glaurung-path (executable-find "glaurung")
-  "*The path to the glaurung executable."
-  :type 'file
-  :group 'chess-glaurung)
+  "The path to the glaurung executable."
+  :type 'file)
 
 (defvar chess-glaurung-regexp-alist chess-uci-regexp-alist
   "Patterns used to match engine output.")
@@ -51,7 +50,7 @@
 	       (= 1 (mod (car args) 2)))
 	  (error "Cannot undo until after glaurung moves"))
 
-      (apply 'chess-uci-handler game event args)))))
+      (apply #'chess-uci-handler game event args)))))
 
 (provide 'chess-glaurung)
 

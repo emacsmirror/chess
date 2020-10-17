@@ -1,6 +1,6 @@
-;;; chess-sound.el --- Announce chess moves with pre-recorded sound files
+;;; chess-sound.el --- Announce chess moves with pre-recorded sound files  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -37,31 +37,26 @@
 		    (file-name-directory
 		     (or load-file-name buffer-file-name)))
   "The directory where chess sounds can be found."
-  :type 'directory
-  :group 'chess-sound)
+  :type 'directory)
 
 (defcustom chess-sound-play-function (if (fboundp 'play-sound-file)
-					 'play-sound-file
-				       'chess-sound-play)
+					 #'play-sound-file
+				       #'chess-sound-play)
   "Non-nil if chess-sound should play sounds ."
-  :type 'function
-  :group 'chess-sound)
+  :type 'function)
 
 (defcustom chess-sound-program (or (executable-find "esdplay")
 				   (executable-find "play"))
   "Program used to play sounds, if `play-sound-file' does not exist."
-  :type 'file
-  :group 'chess-sound)
+  :type 'file)
 
 (defcustom chess-sound-args nil
   "Additional args to pass to `chess-sound-program', before the .WAV file."
-  :type '(repeat string)
-  :group 'chess-sound)
+  :type '(repeat string))
 
 (defcustom chess-sound-my-moves nil
   "If non-nil, plays the move.wav sound whenever you make a move."
-  :type 'boolean
-  :group 'chess-sound)
+  :type 'boolean)
 
 (defsubst chess-sound (file)
   (ignore-errors
@@ -70,7 +65,7 @@
 			       chess-sound-directory))))
 
 (defsubst chess-sound-play (file)
-  (apply 'call-process chess-sound-program
+  (apply #'call-process chess-sound-program
 	 nil nil nil (append chess-sound-args (list file))))
 
 (defun chess-sound-handler (game event &rest _args)
@@ -79,7 +74,7 @@
     (and (file-directory-p chess-sound-directory)
 	 (file-readable-p (expand-file-name "move.wav"
 					    chess-sound-directory))
-	 (or (eq chess-sound-play-function 'play-sound-file)
+	 (or (eq chess-sound-play-function #'play-sound-file)
 	     (and chess-sound-program
 		  (file-executable-p chess-sound-program)))))
 

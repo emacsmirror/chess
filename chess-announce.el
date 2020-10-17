@@ -1,6 +1,6 @@
-;;; chess-announce.el --- Scheme to verbally announce chess moves
+;;; chess-announce.el --- Scheme to verbally announce chess moves  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>

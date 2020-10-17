@@ -1,6 +1,6 @@
-;;; chess-gnuchess.el --- Play against gnuchess!
+;;; chess-gnuchess.el --- Play against gnuchess!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -33,9 +33,8 @@
 
 (defcustom chess-gnuchess-path (let ((exec-path (cons "/usr/games" exec-path)))
 				 (executable-find "gnuchess"))
-  "*The path to the gnuchess executable."
-  :type 'file
-  :group 'chess-gnuchess)
+  "The path to the gnuchess executable."
+  :type 'file)
 
 (defvar chess-gnuchess-bad-board nil)
 (make-variable-buffer-local 'chess-gnuchess-bad-board)
@@ -98,7 +97,7 @@
 	(setq chess-gnuchess-bad-board nil)))
 
      (t
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-gnuchess)
 

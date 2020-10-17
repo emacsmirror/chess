@@ -1,6 +1,6 @@
-;;; chess-ucb.el --- Engine interface to the Novag Universal Chess Board
+;;; chess-ucb.el --- Engine interface to the Novag Universal Chess Board  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -35,8 +35,7 @@
 
 (defcustom chess-ucb-device "/dev/ttyS0"
   "The serial device used to talk to the Novag UCB."
-  :type 'file
-  :group 'chess-ucb)
+  :type 'file)
 
 (defvar chess-ucb-handling-event nil)
 
@@ -84,7 +83,7 @@
 	nil))
 
      ((eq event 'undo)
-      (dotimes (i (car args))
+      (dotimes (_ (car args))
 	(chess-engine-send nil "T\r\n"))
       ;; prevent us from handling the `undo' event which this triggers
       (let ((chess-engine-handling-event t))

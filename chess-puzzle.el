@@ -1,6 +1,6 @@
-;;; chess-puzzle.el --- Support for viewing and solving chess puzzles
+;;; chess-puzzle.el --- Support for viewing and solving chess puzzles  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -41,8 +41,7 @@
 
 (defcustom chess-puzzle-auto-next nil
   "If non-nil, move to the next puzzle once the position is won."
-  :type 'boolean
-  :group 'chess-puzzle)
+  :type 'boolean)
 
 (defvar chess-puzzle-indices nil)
 (defvar chess-puzzle-position nil)
@@ -55,7 +54,7 @@
     (end-of-puzzles . "There are no more puzzles in this collection")))
 
 ;;;###autoload
-(defun chess-puzzle (file &optional index) ;FIXME: index not used!
+(defun chess-puzzle (file &optional _index) ;FIXME: index not used!
   "Pick a random puzzle from FILE, and solve it against the default engine.
 The spacebar in the display buffer is bound to `chess-puzzle-next',
 making it easy to go on to the next puzzle once you've solved one."
@@ -71,7 +70,7 @@ making it easy to go on to the next puzzle once you've solved one."
 	(chess-game-set-data (chess-display-game nil) 'database database)
 	(if chess-puzzle-auto-next
 	    (chess-game-add-hook (chess-display-game nil)
-				 'chess-puzzle-handler display))
+				 #'chess-puzzle-handler display))
 	(define-key (current-local-map) [? ] 'chess-puzzle-next)
 	(define-key (current-local-map) [??] 'chess-puzzle-show-solution)
 	(let ((count (chess-database-count database)))

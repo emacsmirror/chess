@@ -1,6 +1,6 @@
-;;; chess-phalanx.el --- Play chess against phalanx!
+;;; chess-phalanx.el --- Play chess against phalanx!  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -30,8 +30,7 @@
 
 (defcustom chess-phalanx-path (executable-find "phalanx")
   "The path to the phalanx executable."
-  :type 'file
-  :group 'chess-phalanx)
+  :type 'file)
 
 (defvar chess-phalanx-regexp-alist
   (list
@@ -61,7 +60,7 @@
       (chess-game-set-data game 'active nil))
 
      (t
-      (apply 'chess-common-handler game event args)))))
+      (apply #'chess-common-handler game event args)))))
 
 (provide 'chess-phalanx)
 

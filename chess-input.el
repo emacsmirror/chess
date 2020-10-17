@@ -1,6 +1,6 @@
-;;; chess-input.el --- Keyboard entry of algebraic notation, using shortcut notation
+;;; chess-input.el --- Keyboard entry of algebraic notation, using shortcut notation  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2005, 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -54,7 +54,6 @@
 
 (defcustom chess-input-notation-type :san
   "Define the notation type to use for move input."
-  :group 'chess-input
   :type '(choice (const :tag "Standard (short) algebraic notation" :san)
 		 (const :tag "Numeric notation" :numeric)))
 

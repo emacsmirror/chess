@@ -1,6 +1,6 @@
-;;; chess-common.el --- Handler functions common to xboard based engine protocols
+;;; chess-common.el --- Handler functions common to xboard based engine protocols  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -40,13 +40,12 @@
 (make-variable-buffer-local 'chess-common-temp-files)
 
 (defmacro chess-with-temp-file (&rest body)
+  (declare (indent 1) (debug t))
   `(let ((file (make-temp-file "chess")))
      (with-temp-file file
        ,@body)
      (push file chess-common-temp-files)
      file))
-
-(put 'chess-with-temp-file 'lisp-indent-function 1)
 
 (chess-message-catalog 'english
   '((starting-engine	   . "Starting chess program '%s'...")
@@ -106,7 +105,7 @@
     (chess-error 'not-yet-implemented))
 
    ((eq event 'undo)
-    (dotimes (i (car args))
+    (dotimes (_ (car args))
       (chess-engine-send nil "undo\n"))
     (if (= 1 (mod (car args) 2))
 	(chess-engine-send nil "go\n"))

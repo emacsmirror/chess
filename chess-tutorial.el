@@ -1,6 +1,6 @@
-;;; chess-tutorial.el --- A simple chess training display
+;;; chess-tutorial.el --- A simple chess training display  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -61,7 +61,7 @@
   (with-current-buffer (chess-create-display t)
     (chess-module-set-leader nil)
     (chess-display-set-from-fen "8/3p1p/2p3p/4q/2p3p/3p1p/8/N w - -")
-    (chess-game-add-hook (chess-display-game nil) 'chess-tutorial-knight-1)
+    (chess-game-add-hook (chess-display-game nil) #'chess-tutorial-knight-1)
     (setq chess-pos-always-white t)
     (chess-display-popup nil)
     (chess-message 'knight-1-done)))

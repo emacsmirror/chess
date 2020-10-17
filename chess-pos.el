@@ -1,4 +1,4 @@
-;;; chess-pos.el --- Routines for manipulating chess positions
+;;; chess-pos.el --- Routines for manipulating chess positions  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 

@@ -1,6 +1,6 @@
-;;; chess-ply.el --- Routines for manipulating chess plies
+;;; chess-ply.el --- Routines for manipulating chess plies  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -69,6 +69,7 @@
 
 (defsubst chess-ply-p (ply)
   (and (consp ply) (chess-pos-p (car ply))))
+(cl-deftype chess-ply () '(satisfies chess-ply-p))
 
 (defsubst chess-ply-pos (ply)
   "Returns the base position associated with PLY."
@@ -147,7 +148,7 @@ If KEYWORD is the last element of the changes of ply, `t' is returned."
   "Return the position that results from executing PLY."
   (cl-check-type ply chess-ply)
   (or (chess-ply-keyword ply :next-pos)
-      (let ((position (apply 'chess-pos-move
+      (let ((position (apply #'chess-pos-move
 			     (chess-pos-copy (chess-ply-pos ply))
 			     (chess-ply-changes ply))))
 	(chess-pos-set-preceding-ply position ply)
@@ -333,7 +334,7 @@ position object passed in."
    ((memq :any keywords)
     (let ((chess-ply-throw-if-any t))
       (catch 'any-found
-	(apply 'chess-legal-plies position (delq :any keywords)))))
+	(apply #'chess-legal-plies position (delq :any keywords)))))
    ((memq :color keywords)
     (let ((plies (list t)))
       (dolist (p (apply #'chess-pos-search* position (if (cadr (memq :color keywords))

@@ -1,6 +1,6 @@
-;;; chess-chat.el --- Very much like kibitzing, but not saved.
+;;; chess-chat.el --- Very much like kibitzing, but not saved.  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2014 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>

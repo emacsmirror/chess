@@ -1,6 +1,6 @@
-;;; chess-ics1.el --- Classic ICS1 style chessboard display
+;;; chess-ics1.el --- Classic ICS1 style chessboard display  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2005, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Keywords: games
@@ -30,31 +30,26 @@
   '((((class color) (background light)) (:foreground "Green"))
     (((class color) (background dark)) (:foreground "Green"))
     (t (:bold t)))
-  "*The face used for black pieces on the ASCII display."
-  :group 'chess-ics1)
+  "The face used for black pieces on the ASCII display.")
 
 (defface chess-ics1-white-face
   '((((class color) (background light)) (:foreground "Yellow"))
     (((class color) (background dark)) (:foreground "Yellow"))
     (t (:bold t)))
-  "*The face used for white pieces on the ASCII display."
-  :group 'chess-ics1)
+  "The face used for white pieces on the ASCII display.")
 
 (defface chess-ics1-highlight-face
   '((((class color) (background light)) (:background "#add8e6"))
     (((class color) (background dark)) (:background "#add8e6")))
-  "Face to use for highlighting pieces that have been selected."
-  :group 'chess-ics1)
+  "Face to use for highlighting pieces that have been selected.")
 
-(defcustom chess-ics1-popup-function 'chess-ics1-popup
+(defcustom chess-ics1-popup-function #'chess-ics1-popup
   "The function used to popup a chess-ics1 display."
-  :type 'function
-  :group 'chess-ics1)
+  :type 'function)
 
 (defcustom chess-ics1-separate-frame nil
   "If non-nil, display the chessboard in its own frame."
-  :type 'boolean
-  :group 'chess-ics1)
+  :type 'boolean)
 
 ;;; Code:
 
@@ -66,13 +61,13 @@
     (funcall chess-ics1-popup-function))
 
    ((eq event 'draw)
-    (apply 'chess-ics1-draw args))
+    (apply #'chess-ics1-draw args))
 
    ((eq event 'draw-square)
-    (apply 'chess-ics1-draw-square args))
+    (apply #'chess-ics1-draw-square args))
 
    ((eq event 'highlight)
-    (apply 'chess-ics1-highlight args))))
+    (apply #'chess-ics1-highlight args))))
 
 (defun chess-ics1-popup ()
   (if chess-ics1-separate-frame

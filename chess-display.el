@@ -1,6 +1,6 @@
-;;; chess-display.el --- Code shared by all chess displays
+;;; chess-display.el --- Code shared by all chess displays  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002, 2004, 2005, 2008, 2014  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -40,20 +40,17 @@
 (defcustom chess-display-popup t
   "If non-nil (the default), popup displays whenever a significant event
 occurs."
-  :type 'boolean
-  :group 'chess-display)
+  :type 'boolean)
 
 (make-variable-buffer-local 'chess-display-popup)
 
 (defcustom chess-display-highlight-legal t
   "If non-nil, highlight legal target squares when a piece is selected."
-  :type 'boolean
-  :group 'chess-display)
+  :type 'boolean)
 
 (defcustom chess-display-highlight-last-move nil
   "If non-nil, highlight the last move made on the game."
-  :type 'boolean
-  :group 'chess-display)
+  :type 'boolean)
 
 (chess-message-catalog 'english
   '((mode-white     . "White")
@@ -79,18 +76,15 @@ occurs."
 		  (concat " " (match-string 1 date))))) ")")
   "The format of a chess display's modeline.
 See `mode-line-format' for syntax details."
-  :type 'sexp
-  :group 'chess-display)
+  :type 'sexp)
 
 (defface chess-display-black-face
   '((t (:background "Black" :foreground "White")))
-  "*The face used for the word Black in the mode-line."
-  :group 'chess-display)
+  "The face used for the word Black in the mode-line.")
 
 (defface chess-display-white-face
   '((t (:background "White" :foreground "Black")))
-  "*The face used for the word White in the mode-line."
-  :group 'chess-display)
+  "The face used for the word White in the mode-line.")
 
 ;;; Code:
 
@@ -525,16 +519,14 @@ that is supported by most displays, and is the default mode."
 (defcustom chess-display-interesting-events
   '(set-index)
   "Events which will cause a display refresh."
-  :type '(repeat symbol)
-  :group 'chess-display)
+  :type '(repeat symbol))
 
 (defcustom chess-display-momentous-events
   '(orient post-undo setup-game pass move resign abort)
   "Events that will refresh, and cause 'main' displays to popup.
 These are displays for which `chess-display-set-main' has been
 called."
-  :type '(repeat symbol)
-  :group 'chess-display)
+  :type '(repeat symbol))
 
 (defun chess-display-handler (game event &rest args)
   "This display module presents a standard chessboard.
@@ -706,7 +698,7 @@ The key bindings available in this mode are:
 	(function
 	 (lambda ()
 	   (chess-display-position nil))))
-  (setq chess-input-move-function 'chess-display-move))
+  (setq chess-input-move-function #'chess-display-move))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -728,20 +720,21 @@ The key bindings available in this mode are:
 (defun chess-display-kill-board (&optional arg)
   "Send the current board configuration to the user."
   (interactive "P")
-  (let ((x-select-enable-clipboard t)
+  (let (;; (x-select-enable-clipboard t)  ;; It's already the default!
 	(game chess-module-game))
-    (if arg
-	(kill-new (with-temp-buffer
-		    (chess-game-to-pgn game)
-		    (buffer-string)))
-      (kill-new (chess-pos-to-fen (chess-display-position nil) t)))))
+    (kill-new
+     (if arg
+	 (with-temp-buffer
+	   (chess-game-to-pgn game)
+	   (buffer-string))
+       (chess-pos-to-fen (chess-display-position nil) t)))))
 
 (declare-function chess-pgn-to-game "chess-pgn" (&optional string))
 
 (defun chess-display-yank-board ()
   "Send the current board configuration to the user."
   (interactive)
-  (let ((x-select-enable-clipboard t)
+  (let (;; (x-select-enable-clipboard t)  ;; It's already the default!
 	(display (current-buffer))
 	(text (current-kill 0)))
     (with-temp-buffer
@@ -754,14 +747,12 @@ The key bindings available in this mode are:
        ((search-forward "[Event " nil t)
 	(goto-char (match-beginning 0))
 	(chess-game-copy-game display (chess-pgn-to-game)))
-       ((looking-at (concat chess-algebraic-regexp "$"))
-	(let ((move (buffer-string)))
-	  (with-current-buffer display
-	    (chess-display-manual-move move))))
        (t
-	(let ((fen (buffer-string)))
+        (let ((f (if (looking-at (concat chess-algebraic-regexp "$"))
+                     #'chess-display-manual-move #'chess-display-set-from-fen))
+              (str (buffer-string)))
 	  (with-current-buffer display
-	    (chess-display-set-from-fen fen))))))))
+	    (funcall f str))))))))
 
 (defvar chess-display-search-map
   (let ((map (copy-keymap minibuffer-local-map)))
@@ -994,7 +985,7 @@ The key bindings available in this mode are:
     (ding)))
 
 (defun chess-display-list-buffers ()
-  "List all buffders related to this display's current game."
+  "List all buffers related to this display's current game."
   (interactive)
   (let ((chess-game chess-module-game)
         (lb-command (lookup-key ctl-x-map [(control ?b)])))
@@ -1147,13 +1138,10 @@ to the end or beginning."
       (chess-display-draw-square nil index
 				 (or piece last-command-event) (point)))))
 
-(unless (fboundp 'event-window)
-  (defalias 'event-point 'ignore))
-
 (defun chess-display-mouse-set-piece (event)
   "Select the piece the user clicked on."
   (interactive "e")
-  (if (fboundp 'event-window)		; XEmacs
+  (if (featurep 'xemacs)
       (progn
 	(set-buffer (window-buffer (event-window event)))
 	(and (event-point event) (goto-char (event-point event))))
