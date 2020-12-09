@@ -4,7 +4,7 @@
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
-;; Version: 2.0.4
+;; Version: 2.0.5
 ;; Package-Requires: ((cl-lib "0.5"))
 ;; Keywords: games
 ;; Compatibility: Emacs24

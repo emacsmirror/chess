@@ -1,4 +1,4 @@
-This is chess.info, produced by makeinfo version 5.2 from chess.texi.
+This is chess.info, produced by makeinfo version 6.7 from chess.texi.
 
 Copyright © 2001, 2002, 2004, 2014 Free Software Foundation, Inc.
 
@@ -31,7 +31,7 @@ END-INFO-DIR-ENTRY
      modify this GNU manual.”
 
 
-File: chess.info,  Node: Top,  Next: The chess.el library
+File: chess.info,  Node: Top,  Next: The chess.el library,  Up: (dir)
 
 Emacs Chess: chess.el
 *********************
@@ -85,8 +85,8 @@ File: chess.info,  Node: Positions,  Next: Plies,  Up: The chess.el library
 1.1 Positions
 =============
 
-A chess "position" is a given layout of pieces on a chess board, also
-reflecting which "side" (i.e., player) is next to move, and what
+A chess “position” is a given layout of pieces on a chess board, also
+reflecting which “side” (i.e., player) is next to move, and what
 privileges are currently available to each side (castling short or long,
 en passant capture, etc).
 
@@ -341,7 +341,7 @@ File: chess.info,  Node: FEN notation,  Next: EPD notation,  Prev: Annotations, 
 1.1.5 FEN notation
 ------------------
 
-"FEN" (Forsyth-Edwards Notation) encodes a chess position using a simple
+“FEN” (Forsyth-Edwards Notation) encodes a chess position using a simple
 string.  The format is:
 
         POSITION SIDE CASTLING EN-PASSANT
@@ -391,7 +391,7 @@ File: chess.info,  Node: EPD notation,  Prev: FEN notation,  Up: Positions
 1.1.6 EPD notation
 ------------------
 
-"EPD" (Extended Position Description) is a standard for describing chess
+“EPD” (Extended Position Description) is a standard for describing chess
 positions along with an extended set of structured attribute values
 using the ASCII character set.  It is intended for data and command
 interchange among chess-playing programs.  It is also intended for the
@@ -508,7 +508,7 @@ File: chess.info,  Node: Plies,  Next: Variations,  Prev: Positions,  Up: The ch
 1.2 Plies
 =========
 
-A "ply" is the differential between two positions.  In other words, it
+A “ply” is the differential between two positions.  In other words, it
 is the coordinate transformations applied to one position in order to
 arrive at the following position.  It is also informally called "a
 move".
@@ -694,7 +694,7 @@ File: chess.info,  Node: Variations,  Next: Games,  Prev: Plies,  Up: The chess.
 1.3 Variations
 ==============
 
-A "variation" is a sequence of plies that occur after some starting
+A “variation” is a sequence of plies that occur after some starting
 position.  If the starting position represents the initial setup of a
 chess board, and if the final ply results in completion of the game, it
 is called “the main variation”.  Otherwise, variations typically
@@ -784,14 +784,14 @@ File: chess.info,  Node: Games,  Next: Collections,  Prev: Variations,  Up: The 
 1.4 Games
 =========
 
-A "game" includes its main variation, incidental information about the
+A “game” includes its main variation, incidental information about the
 game (who played it, where, when, who won, etc.), and any sub-variations
 of interest to those studying the game afterwards.
 
-   "Game tags" is an alist that associates arbitrary English tag names
+   “Game tags” is an alist that associates arbitrary English tag names
 to their values.
 
-   A game may be represented in ASCII using "PGN" (Portable Game
+   A game may be represented in ASCII using “PGN” (Portable Game
 Notation).  Representing them graphically or verbally is similar to what
 is done for variations (*note Variations::).
 
@@ -943,7 +943,7 @@ File: chess.info,  Node: Collections,  Next: Chess Opening Books,  Prev: Games, 
 1.5 Collections
 ===============
 
-A "collection" is a set of games archived for later perusal.  A set of
+A “collection” is a set of games archived for later perusal.  A set of
 games conceptually represents a large tree of branching variations, and
 can be used for studying current theory, examining Master preferences,
 etc.
@@ -1048,7 +1048,7 @@ File: chess.info,  Node: chess-scid,  Prev: chess-file,  Up: Database Modules
 ..................
 
 This module implements basic reading and writing functionality for
-"SCID" (Shane’s Chess Information Database) files.
+“SCID” (Shane’s Chess Information Database) files.
 
 
 File: chess.info,  Node: Chess Opening Books,  Prev: Collections,  Up: The chess.el library
@@ -1334,7 +1334,7 @@ File: chess.info,  Node: Chess display mode,  Next: Plain ASCII diagram displays
 3.2 Chess display mode
 ======================
 
-"Chess display mode" is a special major mode (*note (emacs)Major
+“Chess display mode” is a special major mode (*note (emacs)Major
 Modes::) that allows to select pieces to move with the mouse or by
 moving point to the desired square/piece.  Additionally, you can enter
 moves in a variant of algebraic notation via the keyboard.
@@ -1454,8 +1454,8 @@ File: chess.info,  Node: Entering moves with algebraic notation,  Prev: Selectin
 3.2.4 Entering moves with algebraic notation
 --------------------------------------------
 
-‘a’ … ‘h’
-‘1’ … ‘8’
+‘a’ ... ‘h’
+‘1’ ... ‘8’
 ‘N’
 ‘B’
 ‘R’
@@ -1600,7 +1600,7 @@ File: chess.info,  Node: Engines,  Next: Chess Session,  Prev: Chessboard displa
 4 Engines
 *********
 
-"Engines" represent opponents in Chess.  The main type of engine
+“Engines” represent opponents in Chess.  The main type of engine
 interfaces with an external chess program.  However, there can be other
 uses for engine objects, such as providing networked engined for playing
 with opponent over different types of transports.
@@ -1695,7 +1695,7 @@ File: chess.info,  Node: Crafty,  Next: Fruit,  Prev: AI,  Up: Engines
 4.4 Crafty
 ==========
 
-"Crafty" is a chess program written by Michael Byrne, UAB professor
+“Crafty” is a chess program written by Michael Byrne, UAB professor
 Dr. Robert Hyatt, Tracy Riegle, Peter Skinner and Ted Langreck.  It is
 directly derived from Cray Blitz, winner of the 1983 and 1986 World
 Computer Chess Championships.
@@ -1716,7 +1716,7 @@ File: chess.info,  Node: Fruit,  Next: Glaurung,  Prev: Crafty,  Up: Engines
 4.5 Fruit
 =========
 
-"Fruit" is a chess engine developed by Fabien Letouzey.  It was
+“Fruit” is a chess engine developed by Fabien Letouzey.  It was
 commercially available from September 2005 until July 2007.  Now it is
 freeware and you can download it for free from
 <http://www.fruitchess.com/>.  The development on Fruit by Fabien
@@ -1740,7 +1740,7 @@ File: chess.info,  Node: Glaurung,  Next: GNU Chess,  Prev: Fruit,  Up: Engines
 4.6 Glaurung
 ============
 
-"Glaurung" is another freely distributed strong computer chess engine.
+“Glaurung” is another freely distributed strong computer chess engine.
 
    If the ‘glaurung’ program is installed and can be found in the
 program search path (‘exec-path’), the ‘chess-glaurung’ engine module
@@ -1758,7 +1758,7 @@ File: chess.info,  Node: GNU Chess,  Next: Phalanx,  Prev: Glaurung,  Up: Engine
 4.7 GNU Chess
 =============
 
-"GNU Chess" (http://gnu.org/software/chess/) is free software, licensed
+“GNU Chess” (http://gnu.org/software/chess/) is free software, licensed
 under the terms of the GNU General Public License, and is maintained by
 collaborating developers.  As one of the earliest computer chess
 programs with full source code available, it’s one of the oldest for
@@ -1780,7 +1780,7 @@ File: chess.info,  Node: Phalanx,  Next: Sjeng,  Prev: GNU Chess,  Up: Engines
 4.8 Phalanx
 ===========
 
-"Phalanx" is an old, popular chess engine, with an interesting history.
+“Phalanx” is an old, popular chess engine, with an interesting history.
 
    If the ‘phalanx’ program is installed and can be found in the program
 search path (‘exec-path’), the ‘chess-phalanx’ engine module will
@@ -1798,7 +1798,7 @@ File: chess.info,  Node: Sjeng,  Next: Stockfish,  Prev: Phalanx,  Up: Engines
 4.9 Sjeng
 =========
 
-"Sjeng" (http://sjeng.org/) is a championship-winner automated chess
+“Sjeng” (http://sjeng.org/) is a championship-winner automated chess
 engine developed by Gian-Carlo Pascutto from Belgium.  While its
 original version was free, recent developments are for sale.
 
@@ -1818,7 +1818,7 @@ File: chess.info,  Node: Stockfish,  Prev: Sjeng,  Up: Engines
 4.10 Stockfish
 ==============
 
-"Stockfish" (http://www.stockfishchess.org/) is one of the strongest
+“Stockfish” (http://www.stockfishchess.org/) is one of the strongest
 chess engines in the world, appearing near or at the top of most chess
 engine rating lists.  Stockfish is also free software, licensed under
 the terms of the GNU General Public License.
@@ -1840,7 +1840,7 @@ File: chess.info,  Node: Chess Session,  Next: Internet Chess Servers,  Prev: En
 5 Chess Session
 ***************
 
-A "chess session" assembles all modules mentioned in previous chapters
+A “chess session” assembles all modules mentioned in previous chapters
 into a working system to interact with.  A session typically consists of
 at least one display module, one engine module, and possibly a number of
 optional modules.  All these modules share a common game object which is
@@ -2234,7 +2234,7 @@ Appendix A GNU Free Documentation License
   0. PREAMBLE
 
      The purpose of this License is to make a manual, textbook, or other
-     functional and useful document "free" in the sense of freedom: to
+     functional and useful document “free” in the sense of freedom: to
      assure everyone the effective freedom to copy and redistribute it,
      with or without modifying it, either commercially or
      noncommercially.  Secondarily, this License preserves for the
@@ -2684,7 +2684,7 @@ notices just after the title page:
        Free Documentation License''.
 
    If you have Invariant Sections, Front-Cover Texts and Back-Cover
-Texts, replace the “with…Texts.” line with this:
+Texts, replace the “with...Texts.” line with this:
 
          with the Invariant Sections being LIST THEIR TITLES, with
          the Front-Cover Texts being LIST, and with the Back-Cover Texts
@@ -2708,24 +2708,24 @@ Concept Index
  [index ]
 * Menu:
 
-* ‘acd’ opcode:                          Opcode "acd" analysis count depth.
+* acd opcode:                            Opcode "acd" analysis count depth.
                                                                (line  6)
-* ‘acn’ opcode:                          Opcode "acn" analysis count nodes.
+* acn opcode:                            Opcode "acn" analysis count nodes.
                                                                (line  6)
-* ‘acs’ opcode:                          Opcode "acs" analysis count seconds.
+* acs opcode:                            Opcode "acs" analysis count seconds.
                                                                (line  6)
 * AI engine:                             AI.                   (line  6)
 * algebraic notation:                    Algebraic notation.   (line  6)
 * algebraic notation, entering moves with: Entering moves with algebraic notation.
                                                                (line  6)
 * algebraic notation, searching moves:   Basic operations.     (line 15)
-* ‘am’ opcode:                           Opcode "am" avoid move(s).
+* am opcode:                             Opcode "am" avoid move(s).
                                                                (line  6)
 * annotations:                           Annotations.          (line  6)
 * ASCII diagram display:                 Plain ASCII diagram displays.
                                                                (line  6)
 * bishop:                                Position coordinates. (line 50)
-* ‘bm’ opcode:                           Opcode "bm" best move(s).
+* bm opcode:                             Opcode "bm" best move(s).
                                                                (line  6)
 * chess display mode:                    Chess display mode.   (line  6)
 * Chess ICS mode:                        Chess ICS Mode.       (line  6)
@@ -3209,85 +3209,85 @@ Key Index
 
 Tag Table:
 Node: Top1474
-Node: The chess.el library2551
-Node: Positions3060
-Node: Creating positions4049
-Node: Position coordinates4808
-Node: Position details7403
-Node: Annotations12465
-Node: FEN notation12807
-Node: EPD notation14655
-Node: Operations16167
-Node: Opcode "acd" analysis count depth17129
-Node: Opcode "acn" analysis count nodes17514
-Node: Opcode "acs" analysis count seconds18048
-Node: Opcode "am" avoid move(s)18577
-Node: Opcode "bm" best move(s)19026
-Node: Plies19429
-Node: Creating plies20584
-Node: Ply details22309
-Node: The "next" position23454
-Node: Algebraic notation23822
-Node: Variations25680
-Node: Creating variations26783
-Node: Variation positions27073
-Node: Variation plies27729
-Node: Making a move in a variation28216
-Node: Games28805
-Node: Creating games30409
-Node: Game tags30788
-Node: Game positions31414
-Node: Game plies32088
-Node: Making a move32363
-Node: PGN notation32800
-Node: PGN mode33552
-Node: Collections33792
-Node: Opening Databases34577
-Node: Querying Databases35052
-Node: Modifying Databases35726
-Node: Finalizing Databases36004
-Node: Database Modules36179
-Node: chess-file36437
-Node: chess-scid37062
-Node: Chess Opening Books37303
-Node: ECO Classification37622
-Node: Polyglot opening book format support38038
-Node: Modules39932
-Node: Chessboard displays46729
-Node: Generic display manipulation functions47363
-Node: Chess display mode50175
-Node: Basic operations51113
-Node: Selecting pieces with the keyboard52915
-Node: Selecting pieces with the mouse53507
-Node: Entering moves with algebraic notation54072
-Node: Plain ASCII diagram displays55092
-Node: ICS1 style ASCII displays56991
-Node: Graphical displays58360
-Node: Engines59222
-Node: Common functions59742
-Node: The Null Engine60793
-Node: AI61336
-Node: Crafty62314
-Node: Fruit63106
-Node: Glaurung64007
-Node: GNU Chess64652
-Node: Phalanx65582
-Node: Sjeng66219
-Node: Stockfish66963
-Node: Chess Session67785
-Node: Internet Chess Servers69554
-Node: Connecting to a server70728
-Node: Chess ICS Mode71253
-Node: Command History74778
-Node: ICS Command Ring75399
-Node: ICS History Copying78782
-Node: Seeking an opponent for a new game80300
-Node: The sought game display80954
-Node: Watching other games81990
-Node: GNU Free Documentation License83473
-Node: Concept Index108836
-Node: Function and Variable Index118214
-Node: Key Index135835
+Node: The chess.el library2563
+Node: Positions3072
+Node: Creating positions4069
+Node: Position coordinates4828
+Node: Position details7423
+Node: Annotations12485
+Node: FEN notation12827
+Node: EPD notation14679
+Node: Operations16195
+Node: Opcode "acd" analysis count depth17157
+Node: Opcode "acn" analysis count nodes17542
+Node: Opcode "acs" analysis count seconds18076
+Node: Opcode "am" avoid move(s)18605
+Node: Opcode "bm" best move(s)19054
+Node: Plies19457
+Node: Creating plies20616
+Node: Ply details22341
+Node: The "next" position23486
+Node: Algebraic notation23854
+Node: Variations25712
+Node: Creating variations26819
+Node: Variation positions27109
+Node: Variation plies27765
+Node: Making a move in a variation28252
+Node: Games28841
+Node: Creating games30457
+Node: Game tags30836
+Node: Game positions31462
+Node: Game plies32136
+Node: Making a move32411
+Node: PGN notation32848
+Node: PGN mode33600
+Node: Collections33840
+Node: Opening Databases34629
+Node: Querying Databases35104
+Node: Modifying Databases35778
+Node: Finalizing Databases36056
+Node: Database Modules36231
+Node: chess-file36489
+Node: chess-scid37114
+Node: Chess Opening Books37359
+Node: ECO Classification37678
+Node: Polyglot opening book format support38094
+Node: Modules39988
+Node: Chessboard displays46785
+Node: Generic display manipulation functions47419
+Node: Chess display mode50231
+Node: Basic operations51173
+Node: Selecting pieces with the keyboard52975
+Node: Selecting pieces with the mouse53567
+Node: Entering moves with algebraic notation54132
+Node: Plain ASCII diagram displays55152
+Node: ICS1 style ASCII displays57051
+Node: Graphical displays58420
+Node: Engines59282
+Node: Common functions59806
+Node: The Null Engine60857
+Node: AI61400
+Node: Crafty62378
+Node: Fruit63174
+Node: Glaurung64079
+Node: GNU Chess64728
+Node: Phalanx65662
+Node: Sjeng66303
+Node: Stockfish67051
+Node: Chess Session67877
+Node: Internet Chess Servers69650
+Node: Connecting to a server70824
+Node: Chess ICS Mode71349
+Node: Command History74874
+Node: ICS Command Ring75495
+Node: ICS History Copying78878
+Node: Seeking an opponent for a new game80396
+Node: The sought game display81050
+Node: Watching other games82086
+Node: GNU Free Documentation License83569
+Node: Concept Index108936
+Node: Function and Variable Index118294
+Node: Key Index135915
 
 End Tag Table
 
