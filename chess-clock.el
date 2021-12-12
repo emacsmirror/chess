@@ -32,19 +32,11 @@
 
 (defsubst chess-clock-add-seconds (time seconds)
   "To TIME, add SECONDS.  Return result as a time value."
-  (let* ((secint (truncate seconds))
-	 (hi (/ secint 65536))
-	 (lo (% secint 65536))
-	 (calc (+ (cadr time) lo)))
-    (if (< calc 65536)
-	(list (+ (car time) hi) calc)
-      (list (+ (car time) (1+ hi)) (% calc 65536)))))
+  (time-add time seconds))
 
 (defsubst chess-clock-time-to-seconds (time)
   "Convert TIME to a floating point number."
-  (+ (* (car time) 65536.0)
-     (cadr time)
-     (/ (or (car (cdr (cdr time))) 0) 1000000.0)))
+  (float-time time))
 
 (defsubst chess-clock-time-diff (t1 t2)
   "Return the difference in seconds between T1 and T2."
