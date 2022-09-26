@@ -1,6 +1,6 @@
 ;;; chess-game.el --- Maintain a chess game that is being played or viewed  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -96,7 +96,7 @@ matches."
 
 (defsubst chess-game-set-tags (game tags)
   "Set the tags alist associated with GAME.
-After the TAGS alist was set the 'set-tags event is triggered."
+After the TAGS alist was set the `set-tags' event is triggered."
   (cl-assert game)
   (cl-assert (or tags (eq tags nil)))
   (setcar (cdr game) tags)
@@ -178,7 +178,7 @@ After the TAGS alist was set the 'set-tags event is triggered."
   (cl-assert game)
   (nth 3 game))
 
-(defalias 'chess-game-main-var 'chess-game-plies)
+(defalias 'chess-game-main-var #'chess-game-plies)
 
 (defsubst chess-game-set-plies (game plies)
   "Set the list of plies which represents the main variation of GAME."
@@ -290,7 +290,7 @@ later using the various tag-related methods)."
 (defun chess-game-move (game ply)
   "Make a move in the current GAME using PLY.
 This creates a new position and adds it to the main variation.
-The 'changes' of the last ply reflect whether the game is currently in
+The `changes' of the last ply reflect whether the game is currently in
 progress (nil), if it is drawn, resigned, mate, etc."
   (cl-assert game)
   (cl-assert (listp ply))

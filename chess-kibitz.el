@@ -1,6 +1,6 @@
 ;;; chess-kibitz.el --- Chess kibitzing, stored as annotations  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -39,7 +39,7 @@
   (set-buffer-modified-p nil)
   (setq chess-kibitz-input-last (copy-marker (point-max) t))
   (let ((map (current-local-map)))
-    (define-key map [(control ?c) (control ?c)] 'chess-kibitz-save)))
+    (define-key map [(control ?c) (control ?c)] #'chess-kibitz-save)))
 
 (defvar chess-module-game)
 

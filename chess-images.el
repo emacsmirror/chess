@@ -1,6 +1,6 @@
 ;;; chess-images.el --- Chessboard display style using graphical images  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Keywords: games
@@ -208,9 +208,9 @@ called."
 
 (defun chess-images-initialize ()
   (let ((map (current-local-map)))
-    (define-key map [?^] 'chess-images-increase-size)
-    (define-key map [?V] 'chess-images-decrease-size)
-    (define-key map [?P] 'chess-images-set-directory))
+    (define-key map [?^] #'chess-images-increase-size)
+    (define-key map [?V] #'chess-images-decrease-size)
+    (define-key map [?P] #'chess-images-set-directory))
   (chess-images-determine-size))
 
 (chess-message-catalog 'english
@@ -368,7 +368,7 @@ They are returned in ascending order, or nil for no sizes available."
 					       chess-images-extension)))
 	  (if (string-match "rdd\\([0-9]+\\)\\." file)
 	      (push (string-to-number (match-string 1 file)) sizes)))
-	(setq chess-images-sizes (sort sizes '<))))))
+	(setq chess-images-sizes (sort sizes #'<))))))
 
 (defun chess-images-best-size (&optional height width)
   "Return the piece size that works best for a window of HEIGHT."

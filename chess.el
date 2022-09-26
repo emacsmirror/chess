@@ -1,6 +1,6 @@
 ;;; chess.el --- Play chess in GNU Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2001-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2001-2022 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -89,7 +89,10 @@
   :group 'games
   :link '(custom-manual "(chess)Top"))
 
-(defconst chess-version "2.0.4"
+(defconst chess-version
+  (if (fboundp 'package-get-version)
+      (package-get-version)
+    "2.0.5")
   "The version of the Emacs chess program.")
 
 (defcustom chess-default-display
@@ -227,7 +230,7 @@ Otherwise use `chess-default-engine' to determine the engine."
     objects))
 
 ;;;###autoload
-(defalias 'chess-session 'chess)
+(defalias 'chess-session #'chess)
 
 ;;;###autoload
 (define-key menu-bar-games-menu [chess] '(menu-item "Chess" chess :help "Play Chess"))

@@ -1,6 +1,6 @@
 ;;; chess-clock.el --- Implements a chess clock  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -68,7 +68,7 @@
 		 (> (chess-game-index game) 0))
 	(unless chess-clock-timer
 	  (setq chess-clock-timer
-		(run-with-timer 0 1 'chess-clock-tick-tock
+		(run-with-timer 0 1 #'chess-clock-tick-tock
 				(current-buffer))))
 	(let ((last-ply (car (last (chess-game-plies game) 2))))
 	  (chess-ply-set-keyword last-ply :white white)

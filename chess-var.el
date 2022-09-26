@@ -1,6 +1,6 @@
 ;;; chess-var.el --- Manipulate variations  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2022 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -75,7 +75,7 @@ Optionally use the given starting POSITION."
 (defun chess-var-move (var ply)
   "Make a move in the current VAR by applying the changes of PLY.
 This creates a new position and adds it to the main variation.
-The 'changes' of the last ply reflect whether the var is currently in
+The `changes' of the last ply reflect whether the var is currently in
 progress (nil), if it is drawn, resigned, mate, etc."
   (cl-assert var)
   (cl-assert (listp ply))

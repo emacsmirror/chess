@@ -1,6 +1,6 @@
 ;;; chess-chat.el --- Very much like kibitzing, but not saved.  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -36,8 +36,8 @@
   (set-buffer-modified-p nil)
   (setq chess-chat-input-last (copy-marker (point-max) t))
   (let ((map (current-local-map)))
-    (define-key map [return] 'chess-chat-send)
-    (define-key map [(control ?m)] 'chess-chat-send)))
+    (define-key map [return] #'chess-chat-send)
+    (define-key map [(control ?m)] #'chess-chat-send)))
 
 (defun chess-chat-send ()
   (interactive)

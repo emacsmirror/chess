@@ -1,6 +1,6 @@
 ;;; chess-irc.el --- This transport uses an IRC bot to send/receive moves.  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2022 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -87,7 +87,7 @@
 					      (user-login-name)
 					      chess-full-name))
 	    (process-send-string proc (format "NICK %s\n" chess-irc-nick))
-	    (set-process-filter proc 'chess-irc-filter)
+	    (set-process-filter proc #'chess-irc-filter)
 	    (set-process-buffer proc (current-buffer))
 	    (set-marker (process-mark proc) (point))
 	    (chess-message 'irc-waiting)))

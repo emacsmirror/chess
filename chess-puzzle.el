@@ -1,6 +1,6 @@
 ;;; chess-puzzle.el --- Support for viewing and solving chess puzzles  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -71,8 +71,8 @@ making it easy to go on to the next puzzle once you've solved one."
 	(if chess-puzzle-auto-next
 	    (chess-game-add-hook (chess-display-game nil)
 				 #'chess-puzzle-handler display))
-	(define-key (current-local-map) [? ] 'chess-puzzle-next)
-	(define-key (current-local-map) [??] 'chess-puzzle-show-solution)
+	(define-key (current-local-map) [? ] #'chess-puzzle-next)
+	(define-key (current-local-map) [??] #'chess-puzzle-show-solution)
 	(let ((count (chess-database-count database)))
 	  (setq chess-puzzle-indices (make-vector count nil))
 	  (dotimes (i count)

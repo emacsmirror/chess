@@ -1,6 +1,6 @@
 ;;; chess-pgn.el --- Convert a chess game to/from Portable Game Notation (PGN)  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -301,13 +301,13 @@ PGN text."
 (defvar chess-pgn-mode-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map text-mode-map)
-    (define-key map [(control ?c) (control ?c)] 'chess-pgn-show-position)
-    (define-key map [mouse-2] 'chess-pgn-mouse-show-position)
+    (define-key map [(control ?c) (control ?c)] #'chess-pgn-show-position)
+    (define-key map [mouse-2] #'chess-pgn-mouse-show-position)
 
-    ;;(define-key map [(control ?m)] 'chess-pgn-move)
-    ;;(define-key map [space] 'chess-pgn-move)
-    (define-key map [? ] 'chess-pgn-insert-and-show-position)
-    (define-key map [tab] 'chess-pgn-complete-move)
+    ;;(define-key map [(control ?m)] #'chess-pgn-move)
+    ;;(define-key map [space] #'chess-pgn-move)
+    (define-key map [? ] #'chess-pgn-insert-and-show-position)
+    (define-key map [tab] #'chess-pgn-complete-move)
     map))
 
 ;;;###autoload
@@ -330,7 +330,7 @@ PGN text."
        #'chess-pgn-current-word))
 
 ;;;###autoload
-(defalias 'pgn-mode 'chess-pgn-mode)
+(defalias 'pgn-mode #'chess-pgn-mode)
 
 (defvar chess-pgn-bold-face 'bold)
 

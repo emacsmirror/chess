@@ -1,6 +1,6 @@
 ;;; chess-uci.el --- Common functions for the Universal Chess Interface protocol  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2014-2022  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: games, processes
@@ -63,7 +63,7 @@
 
 (defsubst chess-uci-convert-long-algebraic (move)
   "Convert long algebraic MOVE to a ply in reference to the engine position.
-If conversion fails, this function fired an 'illegal event."
+If conversion fails, this function fired an `illegal' event."
   (or (chess-uci-long-algebraic-to-ply (chess-engine-position nil) move)
       (chess-engine-command nil 'illegal)))
 

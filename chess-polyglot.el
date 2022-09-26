@@ -1,6 +1,6 @@
 ;;; chess-polyglot.el --- Polyglot chess book access for Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014, 2020-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2014, 2020-2022  Free Software Foundation, Inc.
 
 ;; Author: Mario Lang <mlang@delysid.org>
 ;; Keywords: data, games
@@ -68,7 +68,7 @@ polyglot book file.")
   "Read N octets from the current buffer and advance point."
   (let ((val 0))
     (dotimes (_ n (progn (cl-assert (<= val most-positive-fixnum)) val))
-      (setq val (logior (lsh val 8)
+      (setq val (logior (ash val 8)
 			(progn (forward-char 1) (preceding-char)))))))
 
 (defsubst chess-polyglot-read-key ()
@@ -473,9 +473,9 @@ Returns a buffer object which contains the binary data."
 		 (pcase (list (aref (match-string 1) 0)
 			      (aref (match-string 2) 0)
 			      (logior (aref (match-string 3) 0)
-				      (lsh (aref (match-string 4) 0) 8)
-				      (lsh (aref (match-string 5) 0) 16)
-				      (lsh (aref (match-string 6) 0) 24))
+				      (ash (aref (match-string 4) 0) 8)
+				      (ash (aref (match-string 5) 0) 16)
+				      (ash (aref (match-string 6) 0) 24))
 			      (aref (match-string 7) 0)
 			      (aref (match-string 8) 0))
 		   (`(,method ,_ ,modified-epoch ,_ ,from-fs)
@@ -525,7 +525,7 @@ distribute the probability that a move gets picked."
 	  (cl-assert ply)
 	  ply)))))
 
-(defalias 'chess-polyglot-book-close 'kill-buffer
+(defalias 'chess-polyglot-book-close #'kill-buffer
   "Close a polyglot book.")
 
 (defun chess-polyglot-book-reload (symbol value)

@@ -1,6 +1,6 @@
 ;;; chess-display.el --- Code shared by all chess displays  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2002-2020  Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022  Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
@@ -145,7 +145,7 @@ of the board, if non-nil, the board is viewed from White's perspective."
 	      (chess-display-popup display))
 	  display))))
 
-(defalias 'chess-display-destroy 'chess-module-destroy)
+(defalias 'chess-display-destroy #'chess-module-destroy)
 
 (defun chess-display-clone (display style perspective)
   (let ((new-display (chess-display-create (chess-display-game display)
@@ -236,7 +236,7 @@ also view the same game."
     (chess-game-copy-game chess-module-game game)
     (chess-display-set-index nil (or index (chess-game-index game)))))
 
-(defalias 'chess-display-game 'chess-module-game)
+(defalias 'chess-display-game #'chess-module-game)
 
 (defun chess-display-clock-string ()
   (let ((white (chess-game-data chess-module-game 'white-remaining))
@@ -584,91 +584,91 @@ See `chess-display-type' for the different kinds of displays."
     (suppress-keymap map)
     (set-keymap-parent map nil)
 
-    (define-key map [(control ?i)] 'chess-display-invert)
-    (define-key map [tab] 'chess-display-invert)
+    (define-key map [(control ?i)] #'chess-display-invert)
+    (define-key map [tab] #'chess-display-invert)
 
-    (define-key map [??] 'describe-mode)
-    (define-key map [?L] 'chess-display-list-buffers)
-    ;;(define-key map [?C] 'chess-display-duplicate)
-    (define-key map [?I] 'chess-display-invert)
+    (define-key map [??] #'describe-mode)
+    (define-key map [?L] #'chess-display-list-buffers)
+    ;;(define-key map [?C] #'chess-display-duplicate)
+    (define-key map [?I] #'chess-display-invert)
 
-    (define-key map [?<] 'chess-display-move-first)
-    (define-key map [?,] 'chess-display-move-backward)
-    (define-key map [(meta ?<)] 'chess-display-move-first)
-    (define-key map [?>] 'chess-display-move-last)
-    (define-key map [?.] 'chess-display-move-forward)
-    (define-key map [(meta ?>)] 'chess-display-move-last)
+    (define-key map [?<] #'chess-display-move-first)
+    (define-key map [?,] #'chess-display-move-backward)
+    (define-key map [(meta ?<)] #'chess-display-move-first)
+    (define-key map [?>] #'chess-display-move-last)
+    (define-key map [?.] #'chess-display-move-forward)
+    (define-key map [(meta ?>)] #'chess-display-move-last)
 
-    (define-key map [(meta ?w)] 'chess-display-kill-board)
+    (define-key map [(meta ?w)] #'chess-display-kill-board)
 
-    (define-key map [(control ?l)] 'chess-display-redraw)
+    (define-key map [(control ?l)] #'chess-display-redraw)
 
     map)
   "The mode map used in read-only display buffers.")
 
 (defvar chess-display-mode-map
   (let ((map (copy-keymap chess-display-safe-map)))
-    (define-key map [space] 'chess-display-pass)
-    (define-key map [? ] 'chess-display-pass)
-    (define-key map [??] 'describe-mode)
-    (define-key map [?@] 'chess-display-remote)
-    (define-key map [?A] 'chess-display-manual-move)
-    (define-key map [(control ?c) (control ?a)] 'chess-display-abort)
-    (define-key map [?C] 'chess-display-duplicate)
-    (define-key map [?D] 'chess-display-decline)
-    (define-key map [(control ?c) (control ?c)] 'chess-display-force)
-    (define-key map [(control ?c) (control ?d)] 'chess-display-draw)
-    (define-key map [?E] 'chess-display-edit-board)
-    (define-key map [?F] 'chess-display-set-from-fen)
-    (define-key map [(control ?c) (control ?f)] 'chess-display-call-flag)
-    (define-key map [?M] 'chess-display-match)
-    (define-key map [(control ?c) (control ?r)] 'chess-display-resign)
-    (define-key map [?R] 'chess-display-retract)
-    (define-key map [?S] 'chess-display-shuffle)
-    (define-key map [(control ?c) (control ?t)] 'chess-display-undo)
-    (define-key map [?X] 'chess-display-quit)
-    (define-key map [?Y] 'chess-display-accept)
+    (define-key map [space] #'chess-display-pass)
+    (define-key map [? ] #'chess-display-pass)
+    (define-key map [??] #'describe-mode)
+    (define-key map [?@] #'chess-display-remote)
+    (define-key map [?A] #'chess-display-manual-move)
+    (define-key map [(control ?c) (control ?a)] #'chess-display-abort)
+    (define-key map [?C] #'chess-display-duplicate)
+    (define-key map [?D] #'chess-display-decline)
+    (define-key map [(control ?c) (control ?c)] #'chess-display-force)
+    (define-key map [(control ?c) (control ?d)] #'chess-display-draw)
+    (define-key map [?E] #'chess-display-edit-board)
+    (define-key map [?F] #'chess-display-set-from-fen)
+    (define-key map [(control ?c) (control ?f)] #'chess-display-call-flag)
+    (define-key map [?M] #'chess-display-match)
+    (define-key map [(control ?c) (control ?r)] #'chess-display-resign)
+    (define-key map [?R] #'chess-display-retract)
+    (define-key map [?S] #'chess-display-shuffle)
+    (define-key map [(control ?c) (control ?t)] #'chess-display-undo)
+    (define-key map [?X] #'chess-display-quit)
+    (define-key map [?Y] #'chess-display-accept)
 
-    (define-key map [?\{] 'chess-display-annotate)
-    (define-key map [?\"] 'chess-display-chat)
-    (define-key map [?\'] 'chess-display-chat)
-    (define-key map [?\~] 'chess-display-check-autosave)
+    (define-key map [?\{] #'chess-display-annotate)
+    (define-key map [?\"] #'chess-display-chat)
+    (define-key map [?\'] #'chess-display-chat)
+    (define-key map [?\~] #'chess-display-check-autosave)
 
-    (define-key map [(control ?r)] 'chess-display-search-backward)
-    (define-key map [(control ?s)] 'chess-display-search-forward)
-    (define-key map [(control ?y)] 'chess-display-yank-board)
+    (define-key map [(control ?r)] #'chess-display-search-backward)
+    (define-key map [(control ?s)] #'chess-display-search-forward)
+    (define-key map [(control ?y)] #'chess-display-yank-board)
 
     (dolist (key '(?a ?b ?c ?d ?e ?f ?g ?h
 		   ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8
 		   ?r ?n ?b ?q ?k
 		   ?R ?N ?B ?Q ?K
 		   ?o ?O ?x ?=))
-      (define-key map (vector key) 'chess-input-shortcut))
-    (define-key map [backspace] 'chess-input-shortcut-delete)
-    (define-key map "\d" 'chess-input-shortcut-delete)
+      (define-key map (vector key) #'chess-input-shortcut))
+    (define-key map [backspace] #'chess-input-shortcut-delete)
+    (define-key map "\d" #'chess-input-shortcut-delete)
 
-    (define-key map [(control ?m)] 'chess-display-select-piece)
-    (define-key map [return] 'chess-display-select-piece)
+    (define-key map [(control ?m)] #'chess-display-select-piece)
+    (define-key map [return] #'chess-display-select-piece)
     (cond
      ((featurep 'xemacs)
-      (define-key map [(button1)] 'chess-display-mouse-select-piece)
-      (define-key map [(button2)] 'chess-display-mouse-select-piece)
-      (define-key map [(button3)] 'ignore))
+      (define-key map [(button1)] #'chess-display-mouse-select-piece)
+      (define-key map [(button2)] #'chess-display-mouse-select-piece)
+      (define-key map [(button3)] #'ignore))
      (t
-      (define-key map [down-mouse-1] 'chess-display-mouse-select-piece)
-      (define-key map [drag-mouse-1] 'chess-display-mouse-select-piece)
+      (define-key map [down-mouse-1] #'chess-display-mouse-select-piece)
+      (define-key map [drag-mouse-1] #'chess-display-mouse-select-piece)
 
-      (define-key map [down-mouse-2] 'chess-display-mouse-select-piece)
-      (define-key map [drag-mouse-2] 'chess-display-mouse-select-piece)
+      (define-key map [down-mouse-2] #'chess-display-mouse-select-piece)
+      (define-key map [drag-mouse-2] #'chess-display-mouse-select-piece)
 
-      (define-key map [mouse-3] 'ignore)))
+      (define-key map [mouse-3] #'ignore)))
 
-    (define-key map [menu-bar files] 'undefined)
-    (define-key map [menu-bar edit] 'undefined)
-    (define-key map [menu-bar options] 'undefined)
-    (define-key map [menu-bar buffer] 'undefined)
-    (define-key map [menu-bar tools] 'undefined)
-    (define-key map [menu-bar help-menu] 'undefined)
+    (define-key map [menu-bar files] #'undefined)
+    (define-key map [menu-bar edit] #'undefined)
+    (define-key map [menu-bar options] #'undefined)
+    (define-key map [menu-bar buffer] #'undefined)
+    (define-key map [menu-bar tools] #'undefined)
+    (define-key map [menu-bar help-menu] #'undefined)
 
     map)
   "The mode map used in a chessboard display buffer.")
@@ -761,12 +761,12 @@ The key bindings available in this mode are:
 		      ?r ?n ?b ?q ?k
 		      ?R ?N ?B ?Q ?K
 		      ?o ?O ?x))
-      (define-key map (vector key) 'chess-display-search-key))
-    (define-key map [backspace] 'chess-display-search-delete)
-    (define-key map [delete] 'chess-display-search-delete)
-    (define-key map [(control ?h)] 'chess-display-search-delete)
-    (define-key map [(control ?r)] 'chess-display-search-again)
-    (define-key map [(control ?s)] 'chess-display-search-again)
+      (define-key map (vector key) #'chess-display-search-key))
+    (define-key map [backspace] #'chess-display-search-delete)
+    (define-key map [delete] #'chess-display-search-delete)
+    (define-key map [(control ?h)] #'chess-display-search-delete)
+    (define-key map [(control ?r)] #'chess-display-search-again)
+    (define-key map [(control ?s)] #'chess-display-search-again)
     map))
 
 (defvar chess-display-search-direction nil)
@@ -1045,38 +1045,38 @@ to the end or beginning."
   (let ((map (make-keymap)))
     (suppress-keymap map)
 
-    (define-key map [(control ?l)] 'chess-display-redraw)
-    (define-key map [(control ?i)] 'chess-display-invert)
-    (define-key map "\t" 'chess-display-invert)
+    (define-key map [(control ?l)] #'chess-display-redraw)
+    (define-key map [(control ?i)] #'chess-display-invert)
+    (define-key map "\t" #'chess-display-invert)
 
-    (define-key map [??] 'describe-mode)
-    (define-key map [?L] 'chess-display-list-buffers)
-    ;;(define-key map [?C] 'chess-display-duplicate)
-    (define-key map [?I] 'chess-display-invert)
+    (define-key map [??] #'describe-mode)
+    (define-key map [?L] #'chess-display-list-buffers)
+    ;;(define-key map [?C] #'chess-display-duplicate)
+    (define-key map [?I] #'chess-display-invert)
 
-    (define-key map [?C] 'chess-display-clear-board)
-    (define-key map [?G] 'chess-display-restore-board)
-    (define-key map [?S] 'chess-display-send-board)
-    (define-key map [?X] 'chess-display-quit)
+    (define-key map [?C] #'chess-display-clear-board)
+    (define-key map [?G] #'chess-display-restore-board)
+    (define-key map [?S] #'chess-display-send-board)
+    (define-key map [?X] #'chess-display-quit)
 
     (let ((keys '(?  ?p ?r ?n ?b ?q ?k ?P ?R ?N ?B ?Q ?K)))
       (while keys
-	(define-key map (vector (car keys)) 'chess-display-set-piece)
+	(define-key map (vector (car keys)) #'chess-display-set-piece)
 	(setq keys (cdr keys))))
 
     (cond
      ((featurep 'xemacs)
-      (define-key map [(button1)] 'chess-display-mouse-select-piece)
-      (define-key map [(button2)] 'chess-display-mouse-set-piece)
-      (define-key map [(button3)] 'chess-display-mouse-set-piece))
+      (define-key map [(button1)] #'chess-display-mouse-select-piece)
+      (define-key map [(button2)] #'chess-display-mouse-set-piece)
+      (define-key map [(button3)] #'chess-display-mouse-set-piece))
      (t
-      (define-key map [down-mouse-1] 'chess-display-mouse-select-piece)
-      (define-key map [drag-mouse-1] 'chess-display-mouse-select-piece)
+      (define-key map [down-mouse-1] #'chess-display-mouse-select-piece)
+      (define-key map [drag-mouse-1] #'chess-display-mouse-select-piece)
 
-      (define-key map [mouse-2] 'chess-display-mouse-set-piece)
-      (define-key map [down-mouse-2] 'chess-display-mouse-set-piece)
-      (define-key map [mouse-3] 'chess-display-mouse-set-piece)
-      (define-key map [down-mouse-3] 'chess-display-mouse-set-piece)))
+      (define-key map [mouse-2] #'chess-display-mouse-set-piece)
+      (define-key map [down-mouse-2] #'chess-display-mouse-set-piece)
+      (define-key map [mouse-3] #'chess-display-mouse-set-piece)
+      (define-key map [down-mouse-3] #'chess-display-mouse-set-piece)))
 
     map)
   "The mode map used for editing a chessboard position.")

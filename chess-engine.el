@@ -1,6 +1,6 @@
 ;;; chess-engine.el --- Obtain movements and other information from an engine  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2014-2020 Free Software Foundation, Inc.
+;; Copyright (C) 2014-2022 Free Software Foundation, Inc.
 
 ;; This is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free
@@ -90,7 +90,7 @@
 
 (defsubst chess-engine-convert-algebraic (move &optional trust-check)
   "Convert algebraic move to a ply in reference to the engine position.
-If conversion fails, this function fired an 'illegal event."
+If conversion fails, this function fired an `illegal' event."
   (or (chess-algebraic-to-ply (chess-engine-position nil) move trust-check)
       (chess-engine-command nil 'illegal)))
 
@@ -327,11 +327,11 @@ Optionally supply a new RESPONSE-HANDLER."
 	      (chess-error 'failed-start))
 	    (if (or (not (process-filter proc))
 		    (eq (process-filter proc) 'internal-default-process-filter))
-	      (set-process-filter proc 'chess-engine-filter)))
+	      (set-process-filter proc #'chess-engine-filter)))
 	  (setq chess-engine-current-marker (point-marker))
 	  (chess-game-set-data game 'engine (current-buffer)))))))
 
-(defalias 'chess-engine-destroy 'chess-module-destroy)
+(defalias 'chess-engine-destroy #'chess-module-destroy)
 
 (defun chess-engine-command (engine event &rest args)
   "Call the handler of ENGINE with EVENT (a symbol) and ARGS."
@@ -343,7 +343,7 @@ Optionally supply a new RESPONSE-HANDLER."
 ;; 'wall-clock
 
 (defun chess-engine-set-option (engine option value)
-  "Set ENGINE OPTION to VALUE by invoking its handler with the 'set-option
+  "Set ENGINE OPTION to VALUE by invoking its handler with the `set-option'
 event."
   (chess-with-current-buffer engine
     (chess-engine-command engine 'set-option option value)))
@@ -377,10 +377,10 @@ event."
   (chess-with-current-buffer engine
     (chess-game-pos chess-module-game)))
 
-(defalias 'chess-engine-game 'chess-module-game)
-(defalias 'chess-engine-set-game 'chess-module-set-game)
-(defalias 'chess-engine-set-game* 'chess-module-set-game*)
-(defalias 'chess-engine-index 'chess-module-game-index)
+(defalias 'chess-engine-game #'chess-module-game)
+(defalias 'chess-engine-set-game #'chess-module-set-game)
+(defalias 'chess-engine-set-game* #'chess-module-set-game*)
+(defalias 'chess-engine-index #'chess-module-game-index)
 
 (defun chess-engine-move (engine ply)
   (chess-with-current-buffer engine
@@ -393,7 +393,7 @@ event."
 (defun chess-engine-send (engine string)
   "Send the given STRING to ENGINE.
 If `chess-engine-process' is a valid process object, use `process-send-string'
-to submit the data.  Otherwise, the 'send event is triggered and the engine
+to submit the data.  Otherwise, the `send' event is triggered and the engine
 event handler can take care of the data."
   (chess-with-current-buffer engine
     (let ((proc chess-engine-process))
